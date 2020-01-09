@@ -29,6 +29,12 @@ This is a collection of UI compound components that you can use with application
 
 - Full support of Android Dark Mode
 
+#### See example images below
+
+![](https://github.com/kenargo/compound_widgets/blob/master/readmeImages/AllWidgets_Page_1.png)
+
+![](https://github.com/kenargo/compound_widgets/blob/master/readmeImages/AllWidgets_Page_2.png)
+
 ## Credits:
 
 - https://github.com/AliAzaz/Edittext-Library
