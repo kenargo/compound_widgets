@@ -1,0 +1,18 @@
+<resources>
+    <string name="labelCancel">Cancel</string>
+    <string name="labelOK">OK</string>
+    <string name="labelNeutral">Neutral</string>
+    <string name="labelInformation">Information</string>
+    <string name="notificationDialogSuccess">SUCCESS</string>
+    <string name="notificationDialogWarning">WARNING</string>
+    <string name="notificationDialogInformation">INFORMATION</string>
+    <string name="notificationDialogQuestion">QUESTION</string>
+    <string name="notificationDialogFailure">FAILURE</string>
+
+    <string name="moreInformation">MORE INFORMATION...</string>
+
+    <!--Fix Values, ID's, Keys, Tokens, API KEYS etc. -->
+    <string name="eb_lorem_ipsum_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</string>
+    <string name="eb_lorem_ipsum_short" translatable="false">Lorem ipsum dolor sit amet</string>
+
+</resources>

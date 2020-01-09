@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.kenargo.compoundwidgetsampleapp"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = "${versions.java}"
+        targetCompatibility = "${versions.java}"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "androidx.core:core-ktx:${versions.kotlinKtx}"
+
+    // Common Android Libraries
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    implementation "androidx.legacy:legacy-support-v4:${versions.legacySupport}"
+    //implementation "androidx.multidex:multidex:${versions.multiDex}"
+
+    // Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+
+    // For Kotlin use navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-fragment:${versions.navigation}"
+
+    // For Kotlin use navigation-ui-ktx
+    implementation "androidx.navigation:navigation-ui:${versions.navigation}"
+
+    // Material Design support (including cardview)
+    implementation "com.google.android.material:material:${versions.materialDesign}"
+
+    implementation project(path: ':library')
+
+    // ********************************************************************************
+    // ***************************** Test Libraries ***********************************
+    // ********************************************************************************
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // ********************************************************************************
+    // ****** Above = standard libraries, Below = custom and 3rd party libraries ******
+    // ********************************************************************************
+
+    implementation 'com.github.searchy2:CustomButton:1.9.0'
+    implementation 'com.github.kenargo:ExpandableSelectionView:1.2.0'
+}

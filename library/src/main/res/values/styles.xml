@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="widget_min_max_seek_bar_style" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">2dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_horizontal</item>
+        <item name="android:minHeight">1dp</item>
+        <item name="android:thumb">@drawable/selector_seekbar_dot</item>
+        <item name="android:thumbOffset">10dp</item>
+        <item name="android:splitTrack" tools:targetApi="lollipop">false</item>
+    </style>
+
+    <style name="BaseDialogStyle" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="LIGHT_1" parent="BaseDialogStyle">
+        <item name="android:background">@drawable/background_notification_dialog</item>
+    </style>
+
+    <style name="DialogAnimations">
+        <item name="android:windowEnterAnimation">@anim/zoom_in</item>
+        <item name="android:windowExitAnimation">@anim/zoom_out</item>
+    </style>
+
+</resources>

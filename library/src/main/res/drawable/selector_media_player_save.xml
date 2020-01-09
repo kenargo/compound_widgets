@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- MUST be the first rule!! -->
+    <item android:drawable="@drawable/media_player_save_disabled" android:state_enabled="false" />
+
+    <!-- pressed -->
+    <item android:drawable="@drawable/media_player_save_enabled" android:state_pressed="false" />
+
+    <!-- focused -->
+    <item android:drawable="@drawable/media_player_save_enabled" android:state_pressed="true" />
+
+    <!-- Idle state, when all above rules fail -->
+    <item android:drawable="@drawable/media_player_save_enabled" android:state_enabled="true" />
+
+</selector>

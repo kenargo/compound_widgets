@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LIGHT_1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupTitleAndHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="imageViewNotificationDialogTypeIcon,textViewNotificationDialogTitle,navigationDialogTopDivider" />
+
+    <ImageView
+        android:id="@+id/imageViewNotificationDialogTypeIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNotificationDialogTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewNotificationDialogTitle"
+        app:srcCompat="@drawable/icon_dialog_information" />
+
+    <TextView
+        android:id="@+id/textViewNotificationDialogTitle"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/labelInformation"
+        app:layout_constraintStart_toEndOf="@+id/imageViewNotificationDialogTypeIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/navigationDialogTopDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationDialogTitle" />
+
+    <TextView
+        android:id="@+id/textViewNotificationDialogMessage"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/eb_lorem_ipsum_short"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigationDialogTopDivider"
+        tools:text="@string/eb_lorem_ipsum_short" />
+
+    <hakobastvatsatryan.DropdownTextView
+        android:id="@+id/textViewNotificationDialogDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="end"
+        android:minHeight="120dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/eb_lorem_ipsum_short"
+        app:content_text_color="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/navigationDialogBottomDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title_text="@string/moreInformation"
+        app:title_text_color="@color/black"
+        tools:content_text="@string/eb_lorem_ipsum_long" />
+
+    <!--Yes, the layout_marginBottom is intentionally set to match the height of the buttons-->
+
+    <View
+        android:id="@+id/navigationDialogBottomDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="54dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/textViewNotificationDialogNegativeResponse"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/labelCancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dividerNotificationDialogNegativeResponse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/dividerNotificationDialogNegativeResponse"
+        android:layout_width="1dp"
+        android:layout_height="54dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNotificationDialogNeutralResponse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNotificationDialogNegativeResponse" />
+
+    <Button
+        android:id="@+id/textViewNotificationDialogNeutralResponse"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/labelNeutral"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dividerNotificationDialogNeutralResponse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dividerNotificationDialogNegativeResponse"
+        tools:text="NEUTRAL" />
+
+    <View
+        android:id="@+id/dividerNotificationDialogNeutralResponse"
+        android:layout_width="1dp"
+        android:layout_height="54dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNotificationDialogPositiveResponse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNotificationDialogNeutralResponse" />
+
+    <Button
+        android:id="@+id/textViewNotificationDialogPositiveResponse"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/labelOK"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dividerNotificationDialogNeutralResponse" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

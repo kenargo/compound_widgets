@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageViewWidgetPlayPauseControlLoad"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_media_player_load" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetPlayPauseControlSave"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_media_player_save" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetPlayPauseControlProperties"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_media_player_settings" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetPlayPauseControlStart"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_media_player_play" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetPlayPauseControlPause"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_media_player_pause" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetPlayPauseControlStop"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_media_player_stop" />
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="app_name">Compound Widget Sample</string>
+
+    <string-array name="appDarkModeOptions">
+        <item>Follow System</item>
+        <item>Auto Battery</item>
+        <item>Dark Mode</item>
+        <item>Light Mode</item>
+    </string-array>
+
+    <string-array name="TestNotificationDialog">
+        <item>ONE_BUTTON</item>
+        <item>ONE_BUTTON_NO_TITLE</item>
+        <item>ONE_BUTTON_AND_PROGRESS</item>
+        <item>ONE_BUTTONS_AND_EDIT_TEXT</item>
+        <item>ONE_BUTTONS_AND_SEEKBAR</item>
+        <item>TWO_BUTTONS</item>
+        <item>TWO_BUTTONS_NO_TITLE</item>
+        <item>TWO_BUTTONS_AND_PROGRESS</item>
+        <item>TWO_BUTTONS_AND_EDIT_TEXT</item>
+        <item>TWO_BUTTONS_AND_SEEKBAR</item>
+        <item>THREE_BUTTONS</item>
+        <item>THREE_BUTTONS_NO_TITLE</item>
+        <item>THREE_BUTTONS_AND_PROGRESS</item>
+        <item>THREE_BUTTONS_AND_EDIT_TEXT</item>
+        <item>THREE_BUTTONS_AND_SEEKBAR</item>
+    </string-array>
+
+</resources>

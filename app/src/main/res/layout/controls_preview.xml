@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ControlsKotlinPreview">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ExpandableSingleSelectionView"
+            android:layout_marginBottom="10dp"
+            tools:ignore="HardcodedText" />
+
+        <com.ashraf007.expandableselectionview.ExpandableSingleSelectionView
+            android:id="@+id/expandableSingleSelectionView"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:entries="@array/TestNotificationDialog"
+            android:minWidth="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewSubtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewTitle" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetMinMaxSeekBar"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetMinMaxSeekBar
+            android:id="@+id/widgetMinMaxSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:widgetMinMaxSeekBarEnableAnimation="true"
+            app:widgetMinMaxSeekBarShowControls="false"
+            app:widgetMinMaxSeekBarMaxValue="100"
+            app:widgetMinMaxSeekBarMinValue="-100" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetTitleAndSeekBar"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSeekBar
+            android:id="@+id/widgetTitleAndSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="145"
+            android:text="This is a title"
+            app:widgetTitleAndSeekBarAutoDisplay="true"
+            app:widgetTitleAndSeekBarMaxValue="200"
+            app:widgetTitleAndSeekBarMinValue="0"
+            app:widgetTitleAndSeekBarUnits="inches"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetTitleAndSeekBarEditText"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSeekBarEditText
+            android:id="@+id/widgetTitleAndSeekBarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="50"
+            android:subtitle="This is a subtitle"
+            android:text="This is a title"
+            app:widgetTitleAndSeekBarEnableAnimation="true"
+            app:widgetTitleAndSeekBarEditTextMaxValue="100"
+            app:widgetTitleAndSeekBarEditTextMinValue="-100"
+            app:widgetTitleAndSeekBarEditTextUnits="inches"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetTitleAndSwitchSeekbar"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSwitchSeekBar
+            android:id="@+id/widgetTitleAndSwitchSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:progress="30"
+            android:subtitle="My subtitle"
+            android:text="Auto Takeoff"
+            app:widgetTitleAndSwitchSeekBarEnableAnimation="true"
+            app:widgetTitleAndSwitchSeekBarMaxValue="100"
+            app:widgetTitleAndSwitchSeekBarMinValue="0"
+            app:widgetTitleAndSwitchSeekBarUnits="inches"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetBackTitleForwardDelete"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetBackTitleForwardDelete
+            android:id="@+id/widgetBackTitleForwardDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetTitleAndSubtitle"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSubtitle
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:subtitle="This is a subtitle"
+            android:text="This is a title"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetTitleAndSwitch"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSwitch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:subtitle="My subtitle"
+            android:text="This is a title"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WidgetTitleAndSpinner"
+            android:layout_marginBottom="10dp"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSpinner
+            android:id="@+id/widgetTitleAndSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/TestNotificationDialog"
+            android:subtitle="This is a subtitle"
+            android:text="This is a title"
+            app:widgetTitleAndSpinnerHint="This is a test hint"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WidgetPlayPauseControl"
+            android:layout_marginBottom="10dp"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetPlayPauseControl
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:widgetPlayPauseSupportsCancel="true"
+            app:widgetPlayPauseSupportsLoad="true"
+            app:widgetPlayPauseSupportsPause="true"
+            app:widgetPlayPauseSupportsProperties="true"
+            app:widgetPlayPauseSupportsSave="true"
+            app:widgetPlayPauseSupportsStart="true" />
+
+
+
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="WidgetTitleAndButton"-->
+        <!--        android:layout_marginBottom="10dp"-->
+        <!--            tools:ignore="HardcodedText" />-->
+
+        <!--        <com.kenargo.compound_widgets.WidgetTitleAndButton-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:subtitle="This is a subtitle"-->
+        <!--            android:text="This is a title"-->
+        <!--            app:widgetTitleAndButtonMaxValue="100"-->
+        <!--            app:widgetTitleAndButtonMinValue="0"-->
+        <!--            app:widgetTitleAndButtonText="Button text"-->
+        <!--            tools:ignore="HardcodedText" />-->
+
+        <!--        <View style="@style/Divider.Horizontal" />-->
+
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--        android:layout_marginBottom="10dp"-->
+        <!--            android:text="WidgetTitleAndEditText"-->
+        <!--            tools:ignore="HardcodedText" />-->
+
+        <!--        <com.kenargo.compound_widgets.WidgetTitleAndEditText-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Title"-->
+        <!--            app:widgetTitleAndEditTextMaxValue="50"-->
+        <!--            app:widgetTitleAndEditTextMinValue="0"-->
+        <!--            tools:ignore="HardcodedText" />-->
+
+        <!--        <View style="@style/Divider.Horizontal" />-->
+
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--        android:layout_marginBottom="10dp"-->
+        <!--            android:text="NumberProgressBar"-->
+        <!--            tools:ignore="HardcodedText" />-->
+
+        <!--        <com.kenargo.compound_widgets.numericProgressBar.NumberProgressBar-->
+        <!--            android:id="@+id/progressBarTest"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:progress="50" />-->
+
+    </LinearLayout>
+
+</ScrollView>

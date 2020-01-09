@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!--<dimen name="activity_horizontal_margin">16dp</dimen>-->
+    <!--<dimen name="activity_vertical_margin">16dp</dimen>-->
+    <!--<dimen name="nav_header_vertical_spacing">8dp</dimen>-->
+    <!--<dimen name="nav_header_height">176dp</dimen>-->
+    <!--<dimen name="fab_margin">16dp</dimen>-->
+
+    <!--This is for the About box; it tells me which dimens file is active-->
+
+    <!--<dimen name="T1">17.5sp</dimen>-->
+    <!--<dimen name="T2">16sp</dimen>-->
+    <!--<dimen name="T3">14sp</dimen>-->
+
+    <dimen name="arrow_default_size">25dp</dimen>
+    <dimen name="panel_default_padding">12dp</dimen>
+    <dimen name="content_default_padding">12dp</dimen>
+
+</resources>

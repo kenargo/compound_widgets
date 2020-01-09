@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageViewWidgetBackTitleForwardDeletePrevious"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:scaleType="center"
+        android:src="@drawable/mission_previous_point" />
+
+    <TextView
+        android:id="@+id/textViewWidgetBackTitleForwardDeleteTitle"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="135dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/imageViewWidgetBackTitleForwardDeletePrevious"
+        android:gravity="center"
+        tools:text="TEXT" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetBackTitleForwardDeleteNext"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/textViewWidgetBackTitleForwardDeleteTitle"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:src="@drawable/mission_next_point" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetBackTitleForwardDeleteDelete"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:src="@drawable/mission_delete_point" />
+
+</RelativeLayout>
