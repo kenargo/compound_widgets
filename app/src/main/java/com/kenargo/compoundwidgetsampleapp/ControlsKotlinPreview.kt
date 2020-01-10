@@ -3,7 +3,6 @@ package com.kenargo.compoundwidgetsampleapp
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -73,15 +72,15 @@ class ControlsKotlinPreview : AppCompatActivity() {
         widgetBackTitleForwardDelete!!.setWidgetBackTitleForwardDeleteListener(object :
             WidgetBackTitleForwardDelete.WidgetBackTitleForwardDeleteListener {
             override fun onMovePrevious() {
-                Toast.makeText(applicationContext, "Previous Clocked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Previous Clicked", Toast.LENGTH_SHORT).show()
             }
 
             override fun onMoveNext() {
-                Toast.makeText(applicationContext, "Next Clocked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Next Clicked", Toast.LENGTH_SHORT).show()
             }
 
             override fun onDelete() {
-                Toast.makeText(applicationContext, "Delete Clocked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Delete Clicked", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -103,12 +102,16 @@ class ControlsKotlinPreview : AppCompatActivity() {
             }
         })
 
-        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundWidgetInterfaces.OnCheckedChangeListener { view, isChecked ->
+            Toast.makeText(applicationContext, "widgetTitleAndSwitchSeekBar Clicked", Toast.LENGTH_SHORT).show()
         })
 
         widgetTitleAndSpinner.setOnSelectionChange(CompoundWidgetInterfaces.SelectedItemChanged {
+            Toast.makeText(applicationContext, "widgetTitleAndSpinner item: $it", Toast.LENGTH_SHORT).show()
+        })
 
+        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundWidgetInterfaces.OnCheckedChangeListener { view, isChecked ->
+            Toast.makeText(applicationContext, "widgetTitleAndSwitchSeekBar Clicked", Toast.LENGTH_SHORT).show()
         })
 
 

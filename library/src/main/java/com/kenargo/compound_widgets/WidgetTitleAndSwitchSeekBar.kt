@@ -28,9 +28,9 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
         this.seekBarChangeListener = seekBarChangeListener
     }
 
-    private var onCheckedChangeListener: CompoundButton.OnCheckedChangeListener? = null
+    private var onCheckedChangeListener: CompoundWidgetInterfaces.OnCheckedChangeListener? = null
 
-    fun setOnCheckedChangedListener(onCheckedChangeListener: CompoundButton.OnCheckedChangeListener?) {
+    fun setOnCheckedChangedListener(onCheckedChangeListener: CompoundWidgetInterfaces.OnCheckedChangeListener?) {
         this.onCheckedChangeListener = onCheckedChangeListener
     }
 
@@ -44,10 +44,10 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
             return
         }
 
-        seekBarSwitchWidgetTitleAndSwitchSeekBar.setOnCheckedChangeListener { _: View?, isChecked: Boolean ->
+        seekBarSwitchWidgetTitleAndSwitchSeekBar.setOnCheckedChangeListener { view: View?, isChecked: Boolean ->
             seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (isChecked) View.VISIBLE else View.GONE
 
-            onCheckedChangeListener?.onCheckedChanged(null, isChecked)
+            onCheckedChangeListener?.onCheckedChanged(view, isChecked)
         }
 
         seekBarWidgetTitleAndSwitchSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {

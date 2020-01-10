@@ -20,6 +20,14 @@ class WidgetTitleAndSwitch @JvmOverloads constructor(
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_switch, this, true)
         applyAttributes(context, attrs, defStyleAttr)
+
+        if (isInEditMode) {
+            return
+        }
+
+        widgetLabeledSwitchWidgetTitleAndSwitch.setOnCheckedChangeListener { view: View?, isChecked: Boolean ->
+            onCheckedChangeListener?.onCheckedChanged(view, isChecked)
+        }
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -76,7 +84,9 @@ class WidgetTitleAndSwitch @JvmOverloads constructor(
             widgetLabeledSwitchWidgetTitleAndSwitch.isChecked = isChecked
         }
 
-    fun setOnCheckedChangeListener(listener: SwitchButton.OnCheckedChangeListener?) {
-        widgetLabeledSwitchWidgetTitleAndSwitch.setOnCheckedChangeListener(listener)
+    private var onCheckedChangeListener: CompoundWidgetInterfaces.OnCheckedChangeListener? = null
+
+    fun setOnCheckedChangeListener(listener: CompoundWidgetInterfaces.OnCheckedChangeListener?) {
+        onCheckedChangeListener = listener
     }
 }

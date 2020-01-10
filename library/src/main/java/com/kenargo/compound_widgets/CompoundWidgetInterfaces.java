@@ -1,5 +1,7 @@
 package com.kenargo.compound_widgets;
 
+import android.view.View;
+
 public class CompoundWidgetInterfaces {
 
     ////////////////////////////////////////////////////////////////////
@@ -11,5 +13,9 @@ public class CompoundWidgetInterfaces {
 
     public interface SelectedItemChanged {
         void onSelectionChange(Integer selectedItem);
+    }
+
+    public interface OnCheckedChangeListener{
+        void onCheckedChanged(View view, boolean isChecked);
     }
 }
