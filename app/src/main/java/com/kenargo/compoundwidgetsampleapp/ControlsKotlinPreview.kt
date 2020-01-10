@@ -3,6 +3,7 @@ package com.kenargo.compoundwidgetsampleapp
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -99,6 +100,10 @@ class ControlsKotlinPreview : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 Log.d("ASDF", "Value: ${seekBar!!.progress}")
             }
+        })
+
+        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         })
     }
 }

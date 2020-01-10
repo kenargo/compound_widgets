@@ -165,6 +165,7 @@
             tools:ignore="HardcodedText" />
 
         <com.kenargo.compound_widgets.WidgetTitleAndSwitch
+            android:id="@+id/widgetTitleAndSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"

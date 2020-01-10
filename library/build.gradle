@@ -32,19 +32,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-    implementation "androidx.core:core-ktx:${versions.kotlinKtx}"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+//    implementation "androidx.core:core-ktx:${versions.kotlinKtx}"
 
     // Common Android Libraries
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-    implementation "androidx.legacy:legacy-support-v4:${versions.legacySupport}"
-    implementation "androidx.multidex:multidex:${versions.multiDex}"
+//    implementation "androidx.legacy:legacy-support-v4:${versions.legacySupport}"
+//    implementation "androidx.multidex:multidex:${versions.multiDex}"
 
     // Constraint Layout
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
     // Material Design support (including cardview)
-    implementation "com.google.android.material:material:${versions.materialDesign}"
+    //implementation "com.google.android.material:material:${versions.materialDesign}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
