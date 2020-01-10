@@ -59,7 +59,7 @@ dependencies {
     //  * Update to attr to support standard 'android:background' rather than custom 'app:background'
     //  * Updated to latest gradle and latest Kotlin versions
     //  * Added attribute 'android:entries' and 'android:hint' allowing list and hint text to be added using XML
-    implementation 'com.github.kenargo:ExpandableSelectionView:1.2.0'
+    implementation 'com.github.kenargo:ExpandableSelectionView:1.2.1'
 
     // Used in WidgetTitleAndSeekBarEditText and
     // https://github.com/AliAzaz/Edittext-Library

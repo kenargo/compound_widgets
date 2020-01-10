@@ -67,5 +67,5 @@ dependencies {
     // ********************************************************************************
 
     implementation 'com.github.searchy2:CustomButton:1.9.0'
-    implementation 'com.github.kenargo:ExpandableSelectionView:1.2.0'
+    implementation 'com.github.kenargo:ExpandableSelectionView:1.2.1'
 }
