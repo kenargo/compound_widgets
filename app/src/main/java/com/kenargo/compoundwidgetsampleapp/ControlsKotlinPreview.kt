@@ -7,7 +7,7 @@ import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ashraf007.expandableselectionview.Interfaces
+import com.kenargo.compound_widgets.CompoundWidgetInterfaces
 import com.kenargo.compound_widgets.NotificationDialog.*
 import com.kenargo.compound_widgets.WidgetBackTitleForwardDelete
 import kotlinx.android.synthetic.main.controls_preview.*
@@ -50,7 +50,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
             NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
         )
 
-        expandableSingleSelectionView!!.setOnSelectionChange(Interfaces.SelectedItemChanged {
+        expandableSingleSelectionView!!.setOnSelectionChange(com.ashraf007.expandableselectionview.Interfaces.SelectedItemChanged {
 
             it?.let {
 
@@ -105,5 +105,11 @@ class ControlsKotlinPreview : AppCompatActivity() {
         widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         })
+
+        widgetTitleAndSpinner.setOnSelectionChange(CompoundWidgetInterfaces.SelectedItemChanged {
+
+        })
+
+
     }
 }

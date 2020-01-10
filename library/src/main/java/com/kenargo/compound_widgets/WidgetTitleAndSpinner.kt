@@ -17,9 +17,9 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
         initSubView(context, attrs!!, defStyleAttr)
     }
 
-    private var onSelectionChangeListener: Interfaces.SelectedItemChanged? = null
+    private var onSelectionChangeListener: CompoundWidgetInterfaces.SelectedItemChanged? = null
 
-    fun setOnSelectionChange(listener: Interfaces.SelectedItemChanged) {
+    fun setOnSelectionChange(listener: CompoundWidgetInterfaces.SelectedItemChanged) {
         onSelectionChangeListener = listener
     }
 

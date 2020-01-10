@@ -1,6 +1,6 @@
 package com.kenargo.compound_widgets;
 
-public class Interfaces {
+public class CompoundWidgetInterfaces {
 
     ////////////////////////////////////////////////////////////////////
     // TODO: Is there really no way to have one callback to satisfy both??
