@@ -33,9 +33,11 @@ dependencies {
 
     // Kotlin
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+
 //    implementation "androidx.core:core-ktx:${versions.kotlinKtx}"
 
     // Common Android Libraries
+    // required for androidx.fragment.app.DialogFragment
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
 //    implementation "androidx.legacy:legacy-support-v4:${versions.legacySupport}"
 //    implementation "androidx.multidex:multidex:${versions.multiDex}"
