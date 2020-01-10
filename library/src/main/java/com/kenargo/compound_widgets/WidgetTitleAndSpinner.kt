@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.*
 import android.widget.FrameLayout
+import com.ashraf007.expandableselectionview.ExpandableSelectionViewInterfaces
 import com.ashraf007.expandableselectionview.adapter.BasicStringAdapter
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_title_and_spinner.view.*
@@ -27,7 +28,7 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_spinner, this, true)
         applyAttributes(context, attrs, defStyleAttr)
 
-        expandableSingleSelectionViewWidgetTitleAndSpinner.setOnSelectionChange(com.ashraf007.expandableselectionview.Interfaces.SelectedItemChanged {
+        expandableSingleSelectionViewWidgetTitleAndSpinner.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
             // Now call the creator with the new selection
             onSelectionChangeListener?.onSelectionChange(it)
         })

@@ -7,6 +7,7 @@ import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ashraf007.expandableselectionview.ExpandableSelectionViewInterfaces
 import com.kenargo.compound_widgets.CompoundWidgetInterfaces
 import com.kenargo.compound_widgets.NotificationDialog.*
 import com.kenargo.compound_widgets.WidgetBackTitleForwardDelete
@@ -50,7 +51,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
             NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
         )
 
-        expandableSingleSelectionView!!.setOnSelectionChange(com.ashraf007.expandableselectionview.Interfaces.SelectedItemChanged {
+        expandableSingleSelectionView!!.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
 
             it?.let {
 

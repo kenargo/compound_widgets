@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.ashraf007.expandableselectionview.ExpandableSelectionViewInterfaces
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         singleSelectionView.selectIndex(currentDarkModeTheme)
 
-        singleSelectionView.setOnSelectionChange(com.ashraf007.expandableselectionview.Interfaces.SelectedItemChanged {
+        singleSelectionView.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
             Toast.makeText(this, "SelectedIndex is $it", Toast.LENGTH_SHORT).show()
 
             currentDarkModeTheme = it?.also {
