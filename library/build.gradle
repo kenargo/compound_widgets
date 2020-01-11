@@ -63,12 +63,17 @@ dependencies {
     //  * Added attribute 'android:entries' and 'android:hint' allowing list and hint text to be added using XML
     implementation 'com.github.kenargo:ExpandableSelectionView:1.2.1'
 
+    // https://github.com/yqritc/RecyclerView-FlexibleDivider
+    // WidgetSpinner
+    implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+
     // Used in WidgetTitleAndSeekBarEditText and
     // https://github.com/AliAzaz/Edittext-Library
     implementation 'com.github.AliAzaz:Edittext-Library:2.0.0'
 
     // https://github.com/zcweng/SwitchButton
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // https://github.com/hakobast/DropdownTextView - source in 'derivedWorks' because git version has a
     // minSdkLevel = 19 and I want to support older

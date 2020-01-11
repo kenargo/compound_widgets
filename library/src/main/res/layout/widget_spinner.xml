@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_with_gray_corners"
+    android:clickable="true"
+    android:focusable="true"
+    android:minWidth="100dp" >
+
+    <TextView
+        android:id="@+id/textViewWidgetSpinnerText"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:contentDescription="@null"
+        android:gravity="center|end"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewWidgetSpinnerDropIndicator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="VALUE" />
+
+    <ImageView
+        android:id="@+id/imageViewWidgetSpinnerDropIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewWidgetSpinnerText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@android:drawable/arrow_down_float" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

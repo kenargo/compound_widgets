@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="WidgetSpinner">
+        <!-- Standard attributes, note "android:" prefix and no format attribute -->
+        <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
+        <attr name="android:entries"/>
+    </declare-styleable>
+
     <declare-styleable name="WidgetMinMaxSeekBar">
         <attr name="widgetMinMaxSeekBarEnableAnimation" format="boolean" />
 
