@@ -50,7 +50,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
             NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
         )
 
-        expandableSingleSelectionView!!.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
+        expandableSingleSelectionView.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
 
             it?.let {
 
@@ -109,11 +109,5 @@ class ControlsKotlinPreview : AppCompatActivity() {
         widgetTitleAndSpinner.setOnSelectionChange(CompoundWidgetInterfaces.SelectedItemChanged {
             Toast.makeText(applicationContext, "widgetTitleAndSpinner item: $it", Toast.LENGTH_SHORT).show()
         })
-
-        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundWidgetInterfaces.OnCheckedChangeListener { view, isChecked ->
-            Toast.makeText(applicationContext, "widgetTitleAndSwitchSeekBar Clicked", Toast.LENGTH_SHORT).show()
-        })
-
-
     }
 }

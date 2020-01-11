@@ -231,6 +231,11 @@ class NotificationDialog : DialogFragment() {
         }
     }
 
+    // Most values are only set in the builder but a few are exposed for dynamic setting
+    fun setMessage(message: String) {
+        textViewNotificationDialogMessage!!.text = message
+    }
+
     override fun onStart() {
         super.onStart()
         timeout?.let {

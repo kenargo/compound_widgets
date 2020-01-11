@@ -26,10 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:entries="@array/TestNotificationDialog"
-            android:minWidth="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewSubtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewTitle" />
+            android:minWidth="100dp" />
 
         <View style="@style/Divider.Horizontal" />
 
@@ -66,7 +63,6 @@
             android:layout_height="wrap_content"
             android:progress="145"
             android:text="This is a title"
-            app:widgetTitleAndSeekBarAutoDisplay="true"
             app:widgetTitleAndSeekBarMaxValue="200"
             app:widgetTitleAndSeekBarMinValue="0"
             app:widgetTitleAndSeekBarUnits="inches"
@@ -137,22 +133,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
-
-        <View style="@style/Divider.Horizontal" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="WidgetTitleAndSubtitle"
-            tools:ignore="HardcodedText" />
-
-        <com.kenargo.compound_widgets.WidgetTitleAndSubtitle
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:subtitle="This is a subtitle"
-            android:text="This is a title"
             tools:ignore="HardcodedText" />
 
         <View style="@style/Divider.Horizontal" />

@@ -1,11 +1,16 @@
 package com.kenargo.compound_widgets
 
 import android.content.Context
-import android.text.*
+import android.text.Editable
+import android.text.InputType
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_title_and_seekbar_edit_text.view.*
@@ -106,9 +111,6 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
 
         var setProgressValue = 0
 
-        // The control will be shown if there is a value
-        textViewWidgetTitleAndSeekBarEditTextUnits.visibility = View.GONE
-
         var min = defaultMinimum
         var max = defaultMaximum
 
@@ -130,9 +132,6 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                     R.styleable.WidgetTitleAndSeekBarEditText_widgetTitleAndSeekBarEditTextUnits -> {
                         textViewWidgetTitleAndSeekBarEditTextUnits.text =
                             typedArray.getText(R.styleable.WidgetTitleAndSeekBarEditText_widgetTitleAndSeekBarEditTextUnits)
-                        if (!TextUtils.isEmpty(textViewWidgetTitleAndSeekBarEditTextUnits.text)) {
-                            textViewWidgetTitleAndSeekBarEditTextUnits.visibility = View.VISIBLE
-                        }
                     }
                     R.styleable.WidgetTitleAndSeekBarEditText_widgetTitleAndSeekBarEditTextEnableAnimation -> {
                         seekBarWidgetTitleAndSeekBarEditText.animateChanges = typedArray.getBoolean(
@@ -157,6 +156,13 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                 }
             }
         } finally {
+
+            textViewWidgetTitleAndSeekBarEditTextUnits.visibility =
+                if (textViewWidgetTitleAndSeekBarEditTextUnits.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
 
             setSeekBarRange(min, max)
 

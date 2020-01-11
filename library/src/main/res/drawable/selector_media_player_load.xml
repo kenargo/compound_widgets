@@ -5,7 +5,7 @@
     <item android:drawable="@drawable/media_player_load_disabled" android:state_enabled="false" />
 
     <!-- pressed -->
-    <item android:drawable="@drawable/media_player_load_enabled" android:state_pressed="false" />
+    <item android:drawable="@drawable/media_player_load_disabled" android:state_pressed="false" />
 
     <!-- focused -->
     <item android:drawable="@drawable/media_player_load_enabled" android:state_pressed="true" />

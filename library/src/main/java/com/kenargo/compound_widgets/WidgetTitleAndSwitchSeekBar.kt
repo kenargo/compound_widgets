@@ -3,8 +3,10 @@ package com.kenargo.compound_widgets
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_title_and_switch_seekbar.view.*
@@ -83,10 +85,6 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
 
         var attributeProgress = 0
 
-        // The control will be shown if there is a value
-        textViewWidgetTitleAndSwitchSeekBarSubtitle.visibility = View.GONE
-        textViewWidgetTitleAndSwitchSeekBarUnits.visibility = View.GONE
-
         var min = defaultMinimum
         var max = defaultMaximum
 
@@ -112,23 +110,16 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
                     R.styleable.WidgetTitleAndSwitchSeekBar_android_subtitle -> {
                         textViewWidgetTitleAndSwitchSeekBarSubtitle.text =
                             typedArray.getText(R.styleable.WidgetTitleAndSwitchSeekBar_android_subtitle)
-                        if (!TextUtils.isEmpty(textViewWidgetTitleAndSwitchSeekBarSubtitle.text)) {
-                            textViewWidgetTitleAndSwitchSeekBarSubtitle.visibility = View.VISIBLE
-                        }
                     }
                     R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarUnits -> {
                         textViewWidgetTitleAndSwitchSeekBarUnits.text =
                             typedArray.getText(R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarUnits)
-                        if (!TextUtils.isEmpty(textViewWidgetTitleAndSwitchSeekBarUnits.text)) {
-                            textViewWidgetTitleAndSwitchSeekBarUnits.visibility = View.VISIBLE
-                        }
                     }
                     R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarEnableAnimation -> {
                         seekBarWidgetTitleAndSwitchSeekBar.animateChanges = typedArray.getBoolean(
                             R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarEnableAnimation, true
                         )
                     }
-
                     R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMinValue -> {
                         min = typedArray.getInt(
                             R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMinValue, 0
@@ -147,6 +138,20 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
                 }
             }
         } finally {
+
+            textViewWidgetTitleAndSwitchSeekBarSubtitle.visibility =
+                if (textViewWidgetTitleAndSwitchSeekBarSubtitle.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+
+            textViewWidgetTitleAndSwitchSeekBarUnits.visibility =
+                if (textViewWidgetTitleAndSwitchSeekBarUnits.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
 
             setSeekBarRange(min, max)
 

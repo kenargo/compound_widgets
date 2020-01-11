@@ -3,8 +3,10 @@ package com.kenargo.compound_widgets
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_title_and_seekbar.view.*
@@ -72,9 +74,6 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
 
         var setProgressValue = 0
 
-        // The control will be shown if there is a value
-        textViewWidgetTitleAndSeekBarUnits.visibility = View.GONE
-
         var min = defaultMinimum
         var max = defaultMaximum
 
@@ -94,9 +93,6 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
                     }
                     R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarUnits -> {
                         textViewWidgetTitleAndSeekBarUnits.text = typedArray.getText(R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarUnits)
-                        if (!TextUtils.isEmpty(textViewWidgetTitleAndSeekBarUnits.text)) {
-                            textViewWidgetTitleAndSeekBarUnits.visibility = View.VISIBLE
-                        }
                     }
                     R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarEnableAnimation -> {
                         seekBarWidgetTitleAndSeekBar.animateChanges = typedArray.getBoolean(
@@ -119,6 +115,13 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
                 }
             }
         } finally {
+
+            textViewWidgetTitleAndSeekBarUnits.visibility =
+                if (textViewWidgetTitleAndSeekBarUnits.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
 
             setSeekBarRange(min, max)
 

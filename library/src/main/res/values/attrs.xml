@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="WidgetTitleAndSubtitle">
-        <!-- Standard attributes, note "android:" prefix and no format attribute -->
-        <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
-        <attr name="android:text"/>
-        <attr name="android:subtitle"/>
-    </declare-styleable>
-
     <declare-styleable name="WidgetMinMaxSeekBar">
         <attr name="widgetMinMaxSeekBarEnableAnimation" format="boolean" />
 
@@ -25,8 +18,6 @@
 
     <declare-styleable name="WidgetTitleAndSeekBar">
         <attr name="widgetTitleAndSeekBarUnits" format="string|reference" />
-
-        <attr name="widgetTitleAndSeekBarAutoDisplay" format="boolean" />
 
         <attr name="widgetTitleAndSeekBarEnableAnimation" format="boolean" />
 
