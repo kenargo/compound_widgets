@@ -2,6 +2,9 @@
 <resources>
 
     <declare-styleable name="WidgetSpinner">
+
+        <attr name="widgetSpinnerCoverParent" format="boolean" />
+
         <!-- Standard attributes, note "android:" prefix and no format attribute -->
         <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
         <attr name="android:entries"/>

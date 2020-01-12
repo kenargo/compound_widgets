@@ -5,8 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import com.ashraf007.expandableselectionview.ExpandableSelectionViewInterfaces
-import com.ashraf007.expandableselectionview.adapter.BasicStringAdapter
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_title_and_spinner.view.*
 
@@ -28,7 +26,7 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_spinner, this, true)
         applyAttributes(context, attrs, defStyleAttr)
 
-        expandableSingleSelectionViewWidgetTitleAndSpinner.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
+        widgetSpinnerWidgetTitleAndSpinner.setOnItemSelectedListener(CompoundWidgetInterfaces.SelectedItemChanged {
             // Now call the creator with the new selection
             onSelectionChangeListener?.onSelectionChange(it)
         })
@@ -84,12 +82,7 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
             if (entriesAttribute != 0) {
 
                 val itemsList = listOf(*context.resources.getStringArray(entriesAttribute))
-
-                // Provide a list of strings and an optional hint
-                val expandableAdapter = BasicStringAdapter(itemsList, hint?.toString())
-
-                // Set the adapter to the component
-                expandableSingleSelectionViewWidgetTitleAndSpinner.setAdapter(expandableAdapter)
+                widgetSpinnerWidgetTitleAndSpinner.setItemList(itemsList)
             }
 
             typedArray.recycle()
@@ -97,7 +90,7 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
     }
 
     fun setSelection(index: Int) {
-        expandableSingleSelectionViewWidgetTitleAndSpinner.selectIndex(index)
+        widgetSpinnerWidgetTitleAndSpinner.selectedIndex = index
     }
 
     fun setTitle(title: CharSequence?) {

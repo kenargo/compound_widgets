@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.ashraf007.expandableselectionview.ExpandableSelectionViewInterfaces
+import com.kenargo.compound_widgets.CompoundWidgetInterfaces
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity() {
 
         buttonCommonKotlinControls.setOnClickListener { startActivity(Intent(this, ControlsKotlinPreview::class.java)) }
 
-        singleSelectionView.selectIndex(currentDarkModeTheme)
+        singleSelectionView.selectedIndex = (currentDarkModeTheme)
 
-        singleSelectionView.setOnSelectionChange(ExpandableSelectionViewInterfaces.SelectedItemChanged {
+        singleSelectionView.setOnItemSelectedListener(CompoundWidgetInterfaces.SelectedItemChanged {
             Toast.makeText(this, "SelectedIndex is $it", Toast.LENGTH_SHORT).show()
 
             currentDarkModeTheme = it?.also {

@@ -6,8 +6,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ashraf007.expandableselectionview.ExpandableSingleSelectionView;
 import com.kenargo.compound_widgets.NotificationDialog;
+import com.kenargo.compound_widgets.widgetSpinner.WidgetSpinner;
 
 public class ControlsJavaPreview extends AppCompatActivity {
 
@@ -36,9 +36,9 @@ public class ControlsJavaPreview extends AppCompatActivity {
                 NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
         };
 
-        ExpandableSingleSelectionView widgetTitleAndSpinner = findViewById(R.id.expandableSingleSelectionView);
+        WidgetSpinner widgetSpinner = findViewById(R.id.widgetSpinner);
 
-        widgetTitleAndSpinner.setOnSelectionChange(selectedItem -> {
+        widgetSpinner.setOnItemSelectedListener(selectedItem -> {
 
             if (selectedItem != null) {
                 new NotificationDialog.Builder(ControlsJavaPreview.this)

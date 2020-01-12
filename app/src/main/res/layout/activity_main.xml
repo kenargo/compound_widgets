@@ -6,20 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.ashraf007.expandableselectionview.ExpandableSingleSelectionView
+    <com.kenargo.compound_widgets.widgetSpinner.WidgetSpinner
         android:id="@+id/singleSelectionView"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/bg_expandable_selection_view"
         android:entries="@array/appDarkModeOptions"
         android:hint="Select a dark mode setting"
-        app:dividerVisibility="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:scrollBarsVisibility="false" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--        android:background="@drawable/bg_expandable_selection_view"-->
+<!--        app:dividerVisibility="true"-->
+<!--        app:scrollBarsVisibility="false" />-->
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
