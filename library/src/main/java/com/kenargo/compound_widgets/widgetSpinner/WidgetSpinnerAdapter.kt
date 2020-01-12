@@ -16,7 +16,7 @@ open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
 
     private val mList: List<String>
 
-    private var selectPosition: Int
+    private var selectPosition = -1
 
     private var onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged
 
@@ -39,7 +39,6 @@ open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
         this.context = context
         mList = list
         this.onItemSelectionChanged = onItemSelectionChanged
-        selectPosition = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetViewHolder {
@@ -55,7 +54,7 @@ open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
 
         // https://medium.com/androiddevelopers/appcompat-v23-2-daynight-d10f90c83e94#.28mjofc2z
         // Good article on dark mode and how Android implements the different states
-        val currentNightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val currentNightMode = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK)
 
         if (currentNightMode == Configuration.UI_MODE_NIGHT_NO ||
             currentNightMode == Configuration.UI_MODE_NIGHT_UNDEFINED) {

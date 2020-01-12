@@ -16,6 +16,7 @@ import com.kenargo.myapplicationlibrary.R
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import kotlinx.android.synthetic.main.widget_spinner.view.*
 import java.util.*
+import kotlin.math.max
 
 class WidgetSpinner @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -41,7 +42,7 @@ class WidgetSpinner @JvmOverloads constructor(
             field = value
 
             if (value >= 0 && value < itemsList.size) {
-                text = itemsList[value]
+                setText(itemsList[value])
             }
         }
 
@@ -168,13 +169,9 @@ class WidgetSpinner @JvmOverloads constructor(
 
         setDropdownHeight(height)
 
-        val curWindowHeight = if (height > mPopupWindowMaxHeight) {
-            mPopupWindowMaxHeight
-        } else {
-            height
-        }
+        val curWindowHeight = max(mPopupWindowMaxHeight, height)
 
-        val rect = Rect()
+        var rect = Rect()
 
         getWindowVisibleDisplayFrame(rect)
 
@@ -222,17 +219,15 @@ class WidgetSpinner @JvmOverloads constructor(
         //selectedIndex = mSelectedIndex
     }
 
-    fun setText(@StringRes resid: Int) {
-        textViewWidgetSpinnerText.setText(resid)
+    fun setText( text: CharSequence) {
+        textViewWidgetSpinnerText.text = text
+        widgetSpinnerAdapter!!.setCurrentIndex(itemsList.indexOf(text))
+        widgetSpinnerAdapter!!.notifyDataSetChanged()
     }
 
-    var text: CharSequence?
-        get() = textViewWidgetSpinnerText.text.toString().trim { it <= ' ' }
-        set(text) {
-            textViewWidgetSpinnerText.text = text
-            widgetSpinnerAdapter!!.setCurrentIndex(itemsList.indexOf(text))
-            widgetSpinnerAdapter!!.notifyDataSetChanged()
-        }
+    fun getText(): String {
+        return textViewWidgetSpinnerText.text.toString().trim { it <= ' ' }
+    }
 
     fun setDropdownMaxHeight(height: Int) {
         mPopupWindowMaxHeight = height

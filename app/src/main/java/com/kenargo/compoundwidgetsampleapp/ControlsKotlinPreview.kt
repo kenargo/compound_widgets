@@ -1,10 +1,8 @@
 package com.kenargo.compoundwidgetsampleapp
 
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.view.inputmethod.InputMethodManager
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +10,6 @@ import com.kenargo.compound_widgets.CompoundWidgetInterfaces
 import com.kenargo.compound_widgets.NotificationDialog.*
 import com.kenargo.compound_widgets.WidgetBackTitleForwardDelete
 import kotlinx.android.synthetic.main.controls_preview.*
-import kotlinx.android.synthetic.main.widget_title_and_seekbar_edit_text.view.*
 
 class ControlsKotlinPreview : AppCompatActivity() {
 
