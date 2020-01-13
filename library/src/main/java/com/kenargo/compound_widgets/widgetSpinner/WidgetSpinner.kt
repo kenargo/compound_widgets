@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.PopupWindow
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kenargo.compound_widgets.CompoundWidgetInterfaces

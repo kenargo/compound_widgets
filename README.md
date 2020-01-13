@@ -25,11 +25,50 @@ This is a collection of UI compound components that you can use with application
 
 ```
 
-### Sample App Included shows Java and Kotlin use
+## Sample App Included shows Java and Kotlin use
 
 - Full support of Android Dark Mode
 
-#### See example images below
+### See example images below
+
+#### NotificationDialog
+
+A collection of dialog displaying an icon, title, message and expandable section for "more information"
+
+- ONE_BUTTON
+- ONE_BUTTON_NO_TITLE
+- ONE_BUTTON_AND_PROGRESS
+- ONE_BUTTONS_AND_EDIT_TEXT
+- ONE_BUTTONS_AND_SEEKBAR
+- TWO_BUTTONS
+- TWO_BUTTONS_NO_TITLE
+- TWO_BUTTONS_AND_PROGRESS
+- TWO_BUTTONS_AND_EDIT_TEXT
+- TWO_BUTTONS_AND_SEEKBAR
+- THREE_BUTTONS
+- THREE_BUTTONS_NO_TITLE
+- THREE_BUTTONS_AND_PROGRESS
+- THREE_BUTTONS_AND_EDIT_TEXT
+- THREE_BUTTONS_AND_SEEKBAR
+
+#### WidgetBackTitleForwardDelete
+
+#### WidgetMinMaxSeekBar
+
+#### WidgetPlayPauseControl
+
+#### widgetSpin
+
+#### WidgetTitleAndSeekBar
+
+#### WidgetTitleAndSeekBarEditText
+
+#### WidgetTitleAndSpinner
+
+#### WidgetTitleAndSwitch
+
+#### WidgetTitleAndSwitchSeekBar
+
 
 ![](https://github.com/kenargo/compound_widgets/blob/master/readmeImages/AllWidgets_Page_1.png)
 
