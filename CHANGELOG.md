@@ -9,6 +9,7 @@ OnValueUpdatedListener
 ### Added
 - OnValueUpdatedListener to WidgetTitleAndSeekBar, WidgetTitleAndSwitchSeekBar and WidgetTitleAndSeekBarEditText to support value conversions
 ### Changed
+- Removed unneeded imports from library
 
 ## [1.1.0] - 2020-1-7
 ### Added

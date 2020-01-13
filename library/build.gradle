@@ -9,7 +9,7 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
-        versionName "1.1.0"
+        versionName "1.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -31,16 +31,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Kotlin
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-
-//    implementation "androidx.core:core-ktx:${versions.kotlinKtx}"
-
     // Common Android Libraries
     // required for androidx.fragment.app.DialogFragment
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-//    implementation "androidx.legacy:legacy-support-v4:${versions.legacySupport}"
-//    implementation "androidx.multidex:multidex:${versions.multiDex}"
+
+    // recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // Constraint Layout
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
@@ -60,13 +56,8 @@ dependencies {
     // WidgetSpinner
     implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 
-    // Used in WidgetTitleAndSeekBarEditText and
-    // https://github.com/AliAzaz/Edittext-Library
-    implementation 'com.github.AliAzaz:Edittext-Library:2.0.0'
-
     // https://github.com/zcweng/SwitchButton
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // https://github.com/hakobast/DropdownTextView - source in 'derivedWorks' because git version has a
     // minSdkLevel = 19 and I want to support older

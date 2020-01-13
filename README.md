@@ -37,22 +37,12 @@ This is a collection of UI compound components that you can use with application
 
 ## Credits:
 
-- https://github.com/AliAzaz/Edittext-Library
-    - Used in WidgetTitleAndSeekBarEditText
-
 - https://github.com/zcweng/SwitchButton
     - Used in WidgetTitleAndSwitch
     - Used in WidgetTitleAndSwitchSeekBar
-
-- https://github.com/kenargo/ExpandableSelectionView
-    - Derived from https://github.com/ashrafDoubleO7/ExpandableSelectionView
-    - Fixed support for Java language callbacks
-    - Adding support for all Android DarkModes
-    - Update to attr to support standard 'android:background' rather than custom 'app:background'
-    - Updated to latest gradle and latest Kotlin versions
-    - Added attribute 'android:entries' and 'android:hint' allowing list and hint text to be added using XML
 
 ## Credit for included source code:
 
 - https://github.com/hakobast/DropdownTextView
     - source in 'derivedWorks' because git version has a minSdkLevel=19, this library supports minSdkLevel=17
+    - use in NotificationDialog
