@@ -31,6 +31,10 @@ class ControlsKotlinPreview : AppCompatActivity() {
             }
         })
 
+        widgetTitleAndSeekBar.setOnValueUpdatedListener(CompoundWidgetInterfaces.OnValueUpdatedListener {
+            return@OnValueUpdatedListener "About: $it"
+        })
+
         val notificationDialogResourceIds = arrayOf(
             NotificationDialogTypes.ONE_BUTTON,
             NotificationDialogTypes.ONE_BUTTON_NO_TITLE,

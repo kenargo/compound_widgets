@@ -15,7 +15,11 @@ public class CompoundWidgetInterfaces {
         void onSelectionChange(Integer selectedItem);
     }
 
-    public interface OnCheckedChangeListener{
+    public interface OnCheckedChangeListener {
         void onCheckedChanged(View view, boolean isChecked);
+    }
+
+    public interface OnValueUpdatedListener {
+        String onValueUpdated(int value);
     }
 }

@@ -36,6 +36,12 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
         this.onCheckedChangeListener = onCheckedChangeListener
     }
 
+    private var valueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
+
+    fun setOnValueUpdatedListener(valueChangeLister: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
+        valueUpdatedListener = valueChangeLister
+    }
+
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_switch_seekbar, this, true)
 
@@ -54,24 +60,28 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
 
         seekBarWidgetTitleAndSwitchSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                updateTextView(getProgress())
+                updateValueText(getProgress())
                 seekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                updateTextView(getProgress())
+                updateValueText(getProgress())
                 seekBarChangeListener?.onStartTrackingTouch(seekBar)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                updateTextView(getProgress())
+                updateValueText(getProgress())
                 seekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
     }
 
-    private fun updateTextView(value: Int) {
-        textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = value.toString()
+    private fun updateValueText(value: Int) {
+        if (valueUpdatedListener != null) {
+            textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = valueUpdatedListener?.onValueUpdated(value)
+        } else {
+            textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = value.toString()
+        }
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -158,7 +168,7 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
             setProgress(attributeProgress)
 
             // Initial text view update
-            updateTextView(attributeProgress)
+            updateValueText(attributeProgress)
 
             seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (seekBarSwitchWidgetTitleAndSwitchSeekBar.isChecked) View.VISIBLE else View.GONE
 

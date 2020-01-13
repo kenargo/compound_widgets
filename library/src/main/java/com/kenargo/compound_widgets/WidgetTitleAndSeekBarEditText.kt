@@ -36,6 +36,12 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         seekBarChangeListener = cellSeekBarListener
     }
 
+    private var valueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
+
+    fun setOnValueUpdatedListener(valueChangeLister: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
+        valueUpdatedListener = valueChangeLister
+    }
+
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_seekbar_edit_text, this, true)
 
@@ -71,7 +77,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     hideKeyboard()
-                    updateTextView(getProgress())
+                    updateValueText(getProgress())
                 }
 
                 seekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
@@ -93,11 +99,16 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         })
     }
 
-    private fun updateTextView(value: Int) {
-        editTextWidgetTitleAndSeekBarEditTextValue.setText(value.toString())
-        editTextWidgetTitleAndSeekBarEditTextValue.setSelection(
-            editTextWidgetTitleAndSeekBarEditTextValue.text.length
-        )
+    private fun updateValueText(value: Int) {
+
+        if (valueUpdatedListener != null) {
+            editTextWidgetTitleAndSeekBarEditTextValue.setText(valueUpdatedListener?.onValueUpdated(value))
+        } else {
+            editTextWidgetTitleAndSeekBarEditTextValue.setText(value.toString())
+            editTextWidgetTitleAndSeekBarEditTextValue.setSelection(
+                editTextWidgetTitleAndSeekBarEditTextValue.text.length
+            )
+        }
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -169,7 +180,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
             setProgress(setProgressValue)
 
             // Initial text view update
-            updateTextView(setProgressValue)
+            updateValueText(setProgressValue)
 
             typedArray.recycle()
         }

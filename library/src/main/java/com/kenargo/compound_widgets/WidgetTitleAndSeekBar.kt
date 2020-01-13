@@ -22,13 +22,18 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
     private val defaultMaximum = 100
     private val defaultMinimum = 0
 
-
     // Match the callback from SeekBar so I can maintain code compatibility.
     // Information: SeekBar also has a onStartTrackingTouch(SeekBar seekBar) and onStopTrackingTouch(SeekBar seekBar) but I don't need these yet
     private var seekBarChangeListener: OnSeekBarChangeListener? = null
 
     fun setOnSeekBarChangeListener(cellSeekBarListener: OnSeekBarChangeListener?) {
         seekBarChangeListener = cellSeekBarListener
+    }
+
+    private var valueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
+
+    fun setOnValueUpdatedListener(valueChangeLister: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
+        valueUpdatedListener = valueChangeLister
     }
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -43,24 +48,28 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
 
         seekBarWidgetTitleAndSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                updateTextView(getProgress())
+                updateValueText(getProgress())
                 seekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                updateTextView(getProgress())
+                updateValueText(getProgress())
                 seekBarChangeListener?.onStartTrackingTouch(seekBar)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                updateTextView(getProgress())
+                updateValueText(getProgress())
                 seekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
     }
 
-    private fun updateTextView(value: Int) {
-        textViewWidgetTitleAndSeekBarSeekBarValue.text = value.toString()
+    private fun updateValueText(value: Int) {
+        if (valueUpdatedListener != null) {
+            textViewWidgetTitleAndSeekBarSeekBarValue.text = valueUpdatedListener?.onValueUpdated(value)
+        } else {
+            textViewWidgetTitleAndSeekBarSeekBarValue.text = value.toString()
+        }
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -128,7 +137,7 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
             setProgress(setProgressValue)
 
             // Initial text view update
-            updateTextView(setProgressValue)
+            updateValueText(setProgressValue)
 
             typedArray.recycle()
         }
