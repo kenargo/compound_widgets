@@ -153,7 +153,7 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
         }
     }
 
-    fun setUnitsTitle(subTitle: String?) {
+    fun setValueText(subTitle: String?) {
 
         if (TextUtils.isEmpty(subTitle)) {
             textViewWidgetTitleAndSeekBarUnits.visibility = View.GONE
