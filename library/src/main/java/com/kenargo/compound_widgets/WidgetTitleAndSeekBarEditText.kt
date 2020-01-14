@@ -68,7 +68,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                 }
 
                 if (isValidNumber(s.toString())) {
-                    seekBarWidgetTitleAndSeekBarEditText.setProgress(s.toString().toInt())
+                    seekBarWidgetTitleAndSeekBarEditText.setProgress(s.toString().toInt(), false)
                 }
             }
         })
@@ -231,7 +231,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         return seekBarWidgetTitleAndSeekBarEditText.getProgress()
     }
 
-    @JvmOverloads fun setProgress(value: Int, immediate: Boolean = false) {
+    @JvmOverloads fun setProgress(value: Int, immediate: Boolean = true) {
         seekBarWidgetTitleAndSeekBarEditText.setProgress(value, immediate)
     }
 }

@@ -92,13 +92,13 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
         imageViewWidgetMinMaxSeekBarDecrease.setOnTouchListener(
             RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
-                setProgress(getProgress() - 1)
+                setProgress(getProgress() - 1, false)
             })
         )
 
         imageViewWidgetMinMaxSeekBarIncrease.setOnTouchListener(
             RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
-                setProgress(getProgress() + 1)
+                setProgress(getProgress() + 1, false)
             })
         )
 

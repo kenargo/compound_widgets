@@ -172,7 +172,7 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
         return seekBarWidgetTitleAndSeekBar.getProgress()
     }
 
-    @JvmOverloads fun setProgress(value: Int, immediate: Boolean = false) {
+    @JvmOverloads fun setProgress(value: Int, immediate: Boolean = true) {
         seekBarWidgetTitleAndSeekBar.setProgress(value, immediate)
     }
 }
