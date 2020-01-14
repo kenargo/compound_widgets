@@ -1,12 +1,15 @@
 package com.kenargo.compoundwidgetsampleapp;
 
 import android.os.Bundle;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kenargo.compound_widgets.CompoundWidgetInterfaces;
 import com.kenargo.compound_widgets.NotificationDialog;
+import com.kenargo.compound_widgets.WidgetTitleAndSeekBarEditText;
 import com.kenargo.compound_widgets.widgetSpinner.WidgetSpinner;
 
 public class ControlsJavaPreview extends AppCompatActivity {
@@ -48,6 +51,31 @@ public class ControlsJavaPreview extends AppCompatActivity {
                         .setOnDismissListener(dialog -> Toast.makeText(ControlsJavaPreview.this, "Notification dialog dismissed", Toast.LENGTH_SHORT).show())
                         .build()
                         .show(getSupportFragmentManager(), "fragment_edit_name");
+            }
+        });
+
+        WidgetTitleAndSeekBarEditText widgetTitleAndSeekBarEditText = findViewById(R.id.widgetTitleAndSeekBarEditText);
+
+        widgetTitleAndSeekBarEditText.setProgress(50);
+
+        widgetTitleAndSeekBarEditText.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        widgetTitleAndSeekBarEditText.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnValueUpdatedListener() {
+            @Override
+            public String onValueUpdated(int value) {
+                return Float.toHexString(value);
             }
         });
 

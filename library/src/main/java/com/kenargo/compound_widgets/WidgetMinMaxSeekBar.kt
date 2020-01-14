@@ -38,7 +38,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
         return progress
     }
 
-    fun setProgress(value: Int) {
+    @JvmOverloads fun setProgress(value: Int, immediate: Boolean = false) {
         var newValue = value
 
         if (!isInRange(newValue)) {
@@ -53,7 +53,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
         progress = newValue
 
-        setRealSeekBarValue(progressToUserValue(newValue))
+        setRealSeekBarValue(progressToUserValue(newValue), immediate)
     }
 
     fun setMinValue(value: Int) {
@@ -206,8 +206,8 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
         imageViewWidgetMinMaxSeekBarDecrease.visibility = visibilityFlag
     }
 
-    private fun setRealSeekBarValue(value: Int) {
-        if (animateChanges) {
+    private fun setRealSeekBarValue(value: Int, immediate: Boolean) {
+        if (animateChanges && !immediate) {
             animateSeekBar(seekBarWidgetMinMaxSeekBar.progress, value)
         } else {
             seekBarWidgetMinMaxSeekBar.progress = value
@@ -269,7 +269,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
     private fun animateSeekBar(startValue: Int, endValue: Int) {
 
-        // TODO: fix things to the user doesn's see interim value changes
+        // TODO: fix things to the user doesn't see interim value changes
         if (!::seekBarAnimator.isInitialized) {
 
             seekBarAnimator = ValueAnimator.ofInt(startValue, endValue)

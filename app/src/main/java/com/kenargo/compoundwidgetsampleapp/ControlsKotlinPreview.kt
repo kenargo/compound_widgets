@@ -92,7 +92,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
                 Log.d("ASDF", "Value: $progress")
 
                 widgetTitleAndSwitchSeekBar.setProgress(progress)
-                widgetMinMaxSeekBar.setProgress(progress)
+                widgetMinMaxSeekBar.setProgress(progress, true)
                 widgetTitleAndSeekBar.setProgress(progress)
             }
 
