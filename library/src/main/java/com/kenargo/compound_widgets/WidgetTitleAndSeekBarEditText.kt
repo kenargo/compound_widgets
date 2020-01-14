@@ -207,7 +207,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         }
     }
 
-    fun setValueText(subTitle: String?) {
+    fun setUnitsText(subTitle: String?) {
 
         if (TextUtils.isEmpty(subTitle)) {
             textViewWidgetTitleAndSeekBarEditTextUnits.visibility = View.GONE
