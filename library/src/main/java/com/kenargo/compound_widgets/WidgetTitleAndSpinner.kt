@@ -66,7 +66,10 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
                         entriesAttribute = attrs.getAttributeResourceValue(
                             R.styleable.WidgetTitleAndSpinner_android_entries, 0
                         )
-
+                    }
+                    R.styleable.WidgetTitleAndSpinner_widgetTitleAndSpinnerMaxItemDisplay -> {
+                        widgetSpinnerWidgetTitleAndSpinner.maxItemDisplay = typedArray.getInt(
+                            R.styleable.WidgetTitleAndSpinner_widgetTitleAndSpinnerMaxItemDisplay, -1)
                     }
                 }
             }

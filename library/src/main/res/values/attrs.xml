@@ -5,6 +5,8 @@
 
         <attr name="widgetSpinnerCoverParent" format="boolean" />
 
+        <attr name="widgetSpinnerMaxItemDisplay" format="integer"/>
+
         <!-- Standard attributes, note "android:" prefix and no format attribute -->
         <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
         <attr name="android:entries"/>
@@ -93,6 +95,8 @@
         <attr name="android:entries"/>
 
         <attr name="widgetTitleAndSpinnerHint" format="string|reference" />
+
+        <attr name="widgetTitleAndSpinnerMaxItemDisplay" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="WidgetBackTitleForwardDelete">

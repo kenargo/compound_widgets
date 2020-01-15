@@ -5,12 +5,13 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.PopupWindow
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kenargo.compound_widgets.CompoundWidgetInterfaces
+import com.kenargo.compound_widgets.Conversions
 import com.kenargo.myapplicationlibrary.R
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import kotlinx.android.synthetic.main.widget_spinner.view.*
@@ -26,8 +27,20 @@ class WidgetSpinner @JvmOverloads constructor(
     private var widgetSpinnerAdapter: WidgetSpinnerAdapter? = null
     private val itemsList: MutableList<String> = ArrayList()
 
+    var maxItemDisplay = -1
+
     init {
         initSubView(context, attrs, defStyleAttr)
+    }
+
+    private fun getHeightOfSingleItem(): Int {
+        // Height of the recyclerview items (widget_spinner_item) is fixed at 44dp
+        return context.resources.getDimension(R.dimen.common_44dp).toInt()
+    }
+
+    private fun getHeightOfAllItems(): Int {
+        // Height of the recyclerview items (widget_spinner_item) is fixed at 44dp
+        return getHeightOfSingleItem() * widgetSpinnerAdapter!!.itemCount
     }
 
     private var onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged? = null
@@ -46,9 +59,6 @@ class WidgetSpinner @JvmOverloads constructor(
         }
 
     var coverParent = false
-
-    private var mPopupWindowMaxHeight = 0
-    private var mPopupWindowHeight = 0
 
     private fun initSubView(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int
@@ -71,14 +81,11 @@ class WidgetSpinner @JvmOverloads constructor(
             } else {
 
                 imageViewWidgetSpinnerDropIndicator.setImageResource(R.drawable.widget_spinner_expanded_arrow)
-                showPopupView(context)
+                showPopupWindow()
             }
         }
 
-        // TODO: Number of items displayed
-        mPopupWindowMaxHeight = resources.getDimension(R.dimen.common_44dp).toInt() * 4
-
-        initPopupWindow(CompoundWidgetInterfaces.SelectedItemChanged { position: Int? ->
+        initializePopupWindow(CompoundWidgetInterfaces.SelectedItemChanged { position: Int? ->
 
             widgetSpinnerPopupList!!.dismiss()
 
@@ -104,7 +111,7 @@ class WidgetSpinner @JvmOverloads constructor(
         try {
             for (index in 0 until typedArray.length()) {
 
-                var attribute: Int = try {
+                val attribute: Int = try {
                     typedArray.getIndex(index)
                 } catch (ignore: Exception) {
                     continue
@@ -120,6 +127,10 @@ class WidgetSpinner @JvmOverloads constructor(
                         entriesAttribute = attrs!!.getAttributeResourceValue(
                             R.styleable.WidgetSpinner_android_entries, 0
                         )
+                    }
+                    R.styleable.WidgetSpinner_widgetSpinnerMaxItemDisplay -> {
+                        maxItemDisplay = typedArray.getInt(
+                            R.styleable.WidgetSpinner_widgetSpinnerMaxItemDisplay, -1)
                     }
                 }
             }
@@ -141,7 +152,7 @@ class WidgetSpinner @JvmOverloads constructor(
         }
     }
 
-    private fun initPopupWindow(onSelectedListener: CompoundWidgetInterfaces.SelectedItemChanged)  {
+    private fun initializePopupWindow(onSelectedListener: CompoundWidgetInterfaces.SelectedItemChanged)  {
 
         val showView = LayoutInflater.from(context).inflate(R.layout.widget_spinner_drop_down, null)
 
@@ -159,20 +170,24 @@ class WidgetSpinner @JvmOverloads constructor(
         //mPopupWindow!!.isOutsideTouchable = true
     }
 
-    private fun showPopupView(context: Context)  {
+    private fun showPopupWindow() {
 
-        val height = (itemsList.size * context.resources.getDimension(R.dimen.common_44dp)).toInt()
+        val popupWindowMaxHeight = if (maxItemDisplay == -1) {
+            getHeightOfAllItems()
+        } else {
+            getHeightOfSingleItem() * maxItemDisplay
+        }
 
-        // TODO: Should I use the full width of the entries?
-        widgetSpinnerPopupList!!.width = linearLayoutSpinner.measuredWidth
+        widgetSpinnerPopupList!!.height = popupWindowMaxHeight
 
-        setDropdownHeight(height)
+        // Create a TextView for calculating the accurate width of the PopupWindow
+        val textViewTemp = TextView(context)
+        textViewTemp.text = getMaxLengthItemString()
+        textViewTemp.measure(0, 0)
+        val calculatedWidth: Int = textViewTemp.measuredWidth
 
-        val curWindowHeight = max(mPopupWindowMaxHeight, height)
-
-        var rect = Rect()
-
-        getWindowVisibleDisplayFrame(rect)
+        widgetSpinnerPopupList!!.width =
+            max(linearLayoutSpinner.measuredWidth, Conversions.spToPx(calculatedWidth.toFloat(), context))
 
         if (coverParent) {
 
@@ -182,16 +197,26 @@ class WidgetSpinner @JvmOverloads constructor(
             val locationWindow = IntArray(2)
             textViewWidgetSpinnerText.getLocationInWindow(locationWindow)
 
-            if (location[1] + curWindowHeight > rect.bottom) {
+            val visibleRect = Rect()
+            getWindowVisibleDisplayFrame(visibleRect)
+
+            val curWindowHeight = max(popupWindowMaxHeight, getHeightOfAllItems())
+
+            if (location[1] + curWindowHeight > visibleRect.bottom) {
                 widgetSpinnerPopupList!!.showAtLocation(
-                    textViewWidgetSpinnerText, Gravity.NO_GRAVITY, locationWindow[0], locationWindow[1] + getHeight() - mPopupWindowMaxHeight
+                    textViewWidgetSpinnerText,
+                    Gravity.NO_GRAVITY,
+                    locationWindow[0],
+                    locationWindow[1] + height - popupWindowMaxHeight
                 )
             } else {
                 widgetSpinnerPopupList!!.showAtLocation(
-                    textViewWidgetSpinnerText, Gravity.NO_GRAVITY, locationWindow[0], locationWindow[1]
+                    textViewWidgetSpinnerText,
+                    Gravity.NO_GRAVITY,
+                    locationWindow[0],
+                    locationWindow[1]
                 )
             }
-
         } else {
             widgetSpinnerPopupList!!.showAsDropDown(textViewWidgetSpinnerText)
         }
@@ -215,7 +240,6 @@ class WidgetSpinner @JvmOverloads constructor(
         }
 
         widgetSpinnerAdapter!!.notifyDataSetChanged()
-        //selectedIndex = mSelectedIndex
     }
 
     fun setText( text: CharSequence) {
@@ -228,40 +252,6 @@ class WidgetSpinner @JvmOverloads constructor(
         return textViewWidgetSpinnerText.text.toString().trim { it <= ' ' }
     }
 
-    fun setDropdownMaxHeight(height: Int) {
-        mPopupWindowMaxHeight = height
-        widgetSpinnerPopupList!!.height = calculatePopupWindowHeight()
-    }
-
-    /**
-     * Set the height of the dropdown menu
-     *
-     * @param height the height in pixels
-     */
-    fun setDropdownHeight(height: Int) {
-
-        mPopupWindowHeight = height
-        widgetSpinnerPopupList!!.height = calculatePopupWindowHeight()
-    }
-
-    private fun calculatePopupWindowHeight(): Int {
-
-        if (widgetSpinnerAdapter == null) {
-            return WindowManager.LayoutParams.WRAP_CONTENT
-        }
-
-        val listViewHeight = widgetSpinnerAdapter!!.itemCount * resources.getDimension(R.dimen.common_44dp)
-
-        if (mPopupWindowMaxHeight > 0 && listViewHeight > mPopupWindowMaxHeight) {
-            return mPopupWindowMaxHeight
-        } else if (mPopupWindowHeight != WindowManager.LayoutParams.MATCH_PARENT && mPopupWindowHeight != WindowManager.LayoutParams.WRAP_CONTENT && mPopupWindowHeight <= listViewHeight) {
-            return mPopupWindowHeight
-        }
-
-        return WindowManager.LayoutParams.WRAP_CONTENT
-    }
-
-
     fun updateSpinnerItemList(spinnerItemList: List<String?>?) {
 
         if (spinnerItemList == null || spinnerItemList.size == 0) {
@@ -269,5 +259,21 @@ class WidgetSpinner @JvmOverloads constructor(
         }
 
 //        setItemList(spinnerItemList)
+    }
+
+    private fun getMaxLengthItemString(): String {
+        var maxLength = 0
+        var maxLengthItem = -1
+
+        itemsList.forEachIndexed { index, s ->
+            maxLengthItem =
+                if (s.length > maxLength) {
+                    maxLength = index; index
+                } else {
+                    maxLengthItem
+                }
+        }
+
+        return itemsList[maxLengthItem]
     }
 }

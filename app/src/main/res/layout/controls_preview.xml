@@ -22,9 +22,10 @@
         <com.kenargo.compound_widgets.widgetSpinner.WidgetSpinner
             android:id="@+id/widgetSpinner"
             style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="300dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            app:widgetSpinnerMaxItemDisplay="4"
             android:entries="@array/TestNotificationDialog"
             android:minWidth="100dp" />
 
@@ -170,6 +171,7 @@
             android:subtitle="This is a subtitle"
             android:text="This is a title"
             app:widgetTitleAndSpinnerHint="This is a test hint"
+            app:widgetTitleAndSpinnerMaxItemDisplay="4"
             tools:ignore="HardcodedText" />
 
         <View style="@style/Divider.Horizontal" />
