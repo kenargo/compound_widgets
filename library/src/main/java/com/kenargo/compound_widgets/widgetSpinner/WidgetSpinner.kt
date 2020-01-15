@@ -167,7 +167,10 @@ class WidgetSpinner @JvmOverloads constructor(
         recyclerView.adapter = widgetSpinnerAdapter
 
         widgetSpinnerPopupList = PopupWindow(showView)
-        //mPopupWindow!!.isOutsideTouchable = true
+
+        // Don't use isOutsideTouchable or the PopupWindow for hide/show if the user touches the droplist
+        // to dismiss it.
+        widgetSpinnerPopupList!!.isFocusable = true
     }
 
     private fun showPopupWindow() {
