@@ -3,10 +3,12 @@ package com.kenargo.compound_widgets
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.view.View.OnClickListener
 import android.view.animation.DecelerateInterpolator
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.SeekBar
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_min_max_seek_bar.view.*
 import kotlin.math.abs
@@ -80,6 +82,8 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
         seekBarChangeListener = cellSeekBarListener
     }
 
+    var overrideFromUser = false
+
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_min_max_seek_bar, this, true)
 
@@ -92,12 +96,16 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
         imageViewWidgetMinMaxSeekBarDecrease.setOnTouchListener(
             RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
+                // Using the decrease is the same as from user
+                overrideFromUser = true
                 setProgress(getProgress() - 1, false)
             })
         )
 
         imageViewWidgetMinMaxSeekBarIncrease.setOnTouchListener(
             RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
+                // Using the increase is the same as from user
+                overrideFromUser = true
                 setProgress(getProgress() + 1, false)
             })
         )
@@ -108,8 +116,10 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
                 this@WidgetMinMaxSeekBar.progress = userValueToProgress(progress)
 
                 seekBarChangeListener?.onProgressChanged(
-                    seekBar, this@WidgetMinMaxSeekBar.progress, fromUser
+                    seekBar, this@WidgetMinMaxSeekBar.progress, (fromUser or overrideFromUser)
                 )
+
+                overrideFromUser = false
 
                 updateIncreaseDecreaseButtons()
             }
