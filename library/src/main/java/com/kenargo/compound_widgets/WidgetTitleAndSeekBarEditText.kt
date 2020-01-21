@@ -39,6 +39,12 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         onValueUpdatedListener = listener
     }
 
+    private var onTextEditUpdatedListener: CompoundWidgetInterfaces.OnTextEditUpdatedListener? = null
+
+    fun setOnTextEditUpdatedListener(listener: CompoundWidgetInterfaces.OnTextEditUpdatedListener?) {
+        onTextEditUpdatedListener = listener
+    }
+
     // I'm not exposing the OnTextChange listener because I have a callback interface for conversion from display format to value; that's better I think
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -66,8 +72,12 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                     return
                 }
 
-                if (isValidNumber(s.toString())) {
-                    seekBarWidgetTitleAndSeekBarEditText.setProgress(s.toString().toInt(), false)
+                if (onTextEditUpdatedListener != null) {
+                    seekBarWidgetTitleAndSeekBarEditText.setProgress(onTextEditUpdatedListener?.onValueUpdated(s.toString())!!)
+                } else {
+                    if (isValidNumber(s.toString())) {
+                        seekBarWidgetTitleAndSeekBarEditText.setProgress(s.toString().toInt(), false)
+                    }
                 }
             }
         })

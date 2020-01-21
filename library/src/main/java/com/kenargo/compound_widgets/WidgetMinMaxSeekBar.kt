@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.SeekBar
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_min_max_seek_bar.view.*
+import java.lang.Integer.MIN_VALUE
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -41,6 +42,11 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
     }
 
     @JvmOverloads fun setProgress(value: Int, immediate: Boolean = false) {
+
+        if (value == MIN_VALUE) {
+            return
+        }
+
         var newValue = value
 
         if (!isInRange(newValue)) {

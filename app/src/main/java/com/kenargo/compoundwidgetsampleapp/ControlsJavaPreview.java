@@ -103,6 +103,20 @@ public class ControlsJavaPreview extends AppCompatActivity {
             }
         });
 
+        widgetTitleAndSeekBarEditText.setOnTextEditUpdatedListener(new CompoundWidgetInterfaces.OnTextEditUpdatedListener() {
+            @Override
+            public int onValueUpdated(String value) {
+
+                try {
+                    return Integer.parseInt(value.substring(2));
+                } catch (NumberFormatException ignore) {
+
+                    // returning MIN_VALUE will result in no change to progress
+                    return Integer.MIN_VALUE;
+                }
+            }
+        });
+
         widgetTitleAndSeekBarEditText.setProgress(50);
     }
 }
