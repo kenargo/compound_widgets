@@ -28,14 +28,14 @@ public class SwitchButton extends View implements Checkable {
     private static final int DEFAULT_HEIGHT = dp2pxInt(36);
 
     /**
-     * 动画状态：
-     * 1.静止
-     * 2.进入拖动
-     * 3.处于拖动
-     * 4.拖动-复位
-     * 5.拖动-切换
-     * 6.点击切换
-     * **/
+     :: Animated status:
+     :: 0. Still
+     :: 1. Enter Drag
+     :: 2. Drag
+     :: 3. Drag-Reset
+     :: 4. Drag-Switch
+     :: 5. Click to switch
+     **/
     private final int ANIMATE_STATE_NONE = 0;
     private final int ANIMATE_STATE_PENDING_DRAG = 1;
     private final int ANIMATE_STATE_DRAGING = 2;
