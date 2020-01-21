@@ -26,21 +26,14 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
         onSeekBarChangeListener = listener
     }
 
-    private var onValueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
+    private var onProgressValueUpdatedListener: CompoundWidgetInterfaces.OnProgressValueUpdatedListener? = null
 
-    fun setOnValueUpdatedListener(listener: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
-        onValueUpdatedListener = listener
+    fun setOnValueUpdatedListener(listener: CompoundWidgetInterfaces.OnProgressValueUpdatedListener?) {
+        onProgressValueUpdatedListener = listener
     }
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_seekbar, this, true)
-
-        applyAttributes(context, attrs, defStyleAttr)
-
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
 
         seekBarWidgetTitleAndSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -49,26 +42,27 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                updateValueText(getProgress())
                 onSeekBarChangeListener?.onStartTrackingTouch(seekBar)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                updateValueText(getProgress())
                 onSeekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
+
+        applyAttributes(context, attrs, defStyleAttr)
     }
 
     private fun updateValueText(value: Int) {
-        if (onValueUpdatedListener != null) {
-            textViewWidgetTitleAndSeekBarSeekBarValue.text = onValueUpdatedListener?.onValueUpdated(value)
+        if (onProgressValueUpdatedListener != null) {
+            textViewWidgetTitleAndSeekBarSeekBarValue.text = onProgressValueUpdatedListener?.onProgressValueUpdated(value)
         } else {
             textViewWidgetTitleAndSeekBarSeekBarValue.text = value.toString()
         }
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+
         if (attrs == null) {
             return
         }
@@ -77,7 +71,7 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
             attrs, R.styleable.WidgetTitleAndSeekBar, defStyleAttr, 0
         )
 
-        var setProgressValue = 0
+        var setProgressValue = defaultMinimum
 
         var min = defaultMinimum
         var max = defaultMaximum
@@ -106,16 +100,16 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
                     }
                     R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarMinValue -> {
                         min = typedArray.getInt(
-                            R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarMinValue, 0
+                            R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarMinValue, defaultMinimum
                         )
                     }
                     R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarMaxValue -> {
                         max = typedArray.getInt(
-                            R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarMaxValue, 100
+                            R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarMaxValue, defaultMaximum
                         )
                     }
                     R.styleable.WidgetTitleAndSeekBar_android_progress -> {
-                        setProgressValue = typedArray.getInt(R.styleable.WidgetTitleAndSeekBar_android_progress, 0)
+                        setProgressValue = typedArray.getInt(R.styleable.WidgetTitleAndSeekBar_android_progress, defaultMinimum)
                     }
                 }
             }
@@ -131,9 +125,6 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
             setSeekBarRange(min, max)
 
             setProgress(setProgressValue)
-
-            // Initial text view update
-            updateValueText(setProgressValue)
 
             typedArray.recycle()
         }
@@ -159,9 +150,8 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
         }
     }
 
-
-    fun setSeekBarRange(min: Int, max: Int) {
-        seekBarWidgetTitleAndSeekBar.setSeekBarRange(min, max)
+    fun setSeekBarRange(minimumValue: Int, maximumValue: Int) {
+        seekBarWidgetTitleAndSeekBar.setSeekBarRange(minimumValue, maximumValue)
     }
 
     fun getProgress(): Int {

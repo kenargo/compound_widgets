@@ -76,12 +76,12 @@ A collection of dialog displaying an icon, title, message and expandable section
 
 ## Credits:
 
-- https://github.com/zcweng/SwitchButton
-    - Used in WidgetTitleAndSwitch
-    - Used in WidgetTitleAndSwitchSeekBar
-
 ## Credit for included source code:
 
 - https://github.com/hakobast/DropdownTextView
-    - source in 'derivedWorks' because git version has a minSdkLevel=19, this library supports minSdkLevel=17
-    - use in NotificationDialog
+    - Source in 'derivedWorks' because git version has a minSdkLevel=19, this library supports minSdkLevel=17
+    - Used in NotificationDialog
+    
+-https://github.com/zcweng/SwitchButton
+    - Source in 'derivedWorks' because git version doesn't display in designer view
+    - Used in WidgetTitleAndSwitch and WidgetTitleAndSwitchSeekBar

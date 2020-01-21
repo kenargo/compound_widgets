@@ -28,14 +28,13 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
     private val defaultInitialTouchTime = 100
     private val defaultRepeatDelayTime = 400
-    private val secondRepeatDelay = 200
 
     var animateChanges = true
 
     private var minValue = defaultMinimum
     private var maxValue = defaultMaximum
 
-    private var progress = 0
+    private var progress = defaultMinimum
 
     fun getProgress(): Int {
         return progress
@@ -69,7 +68,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
     }
 
     fun getMinValue(): Int {
-        return maxValue
+        return minValue
     }
 
     fun setMaxValue(value: Int) {
@@ -77,7 +76,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
     }
 
     fun getMaxValue(): Int {
-        return minValue
+        return maxValue
     }
 
     // Match the callback from SeekBar so I can maintain code compatibility.
@@ -93,35 +92,12 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_min_max_seek_bar, this, true)
 
-        applyAttributes(context, attrs, defStyleAttr)
-
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
-
-        imageViewWidgetMinMaxSeekBarDecrease.setOnTouchListener(
-            RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
-                // Using the decrease is the same as from user
-                overrideFromUser = true
-                setProgress(getProgress() - 1, false)
-            })
-        )
-
-        imageViewWidgetMinMaxSeekBarIncrease.setOnTouchListener(
-            RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
-                // Using the increase is the same as from user
-                overrideFromUser = true
-                setProgress(getProgress() + 1, false)
-            })
-        )
-
         seekBarWidgetMinMaxSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
-                Log.d("ASDF", "seekBarWidgetMinMaxSeekBar.setOnSeekBarChangeListener: value=$progress, fromUser=$fromUser")
-
                 this@WidgetMinMaxSeekBar.progress = userValueToProgress(progress)
+
+                Log.d("ASDF", "seekBarWidgetMinMaxSeekBar.setOnSeekBarChangeListener: value=${this@WidgetMinMaxSeekBar.progress}, fromUser=$fromUser")
 
                 onSeekBarChangeListener?.onProgressChanged(
                     seekBar, this@WidgetMinMaxSeekBar.progress, (fromUser or overrideFromUser)
@@ -142,14 +118,37 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
                 onSeekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
+
+        applyAttributes(context, attrs, defStyleAttr)
+
+        if (isInEditMode) {
+            return
+        }
+
+        imageViewWidgetMinMaxSeekBarDecrease.setOnTouchListener(
+            RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
+                // Using the decrease is the same as from user
+                overrideFromUser = true
+                setProgress(getProgress() - 1, false)
+            })
+        )
+
+        imageViewWidgetMinMaxSeekBarIncrease.setOnTouchListener(
+            RepeatListener(defaultInitialTouchTime, defaultRepeatDelayTime, OnClickListener {
+                // Using the increase is the same as from user
+                overrideFromUser = true
+                setProgress(getProgress() + 1, false)
+            })
+        )
     }
 
     private fun updateIncreaseDecreaseButtons() {
-        imageViewWidgetMinMaxSeekBarIncrease.isEnabled = (getProgress() != getMinValue())
-        imageViewWidgetMinMaxSeekBarDecrease.isEnabled = (getProgress() != getMaxValue())
+        imageViewWidgetMinMaxSeekBarIncrease.isEnabled = (getProgress() != getMaxValue())
+        imageViewWidgetMinMaxSeekBarDecrease.isEnabled = (getProgress() != getMinValue())
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+
         if (attrs == null) {
             return
         }
@@ -159,7 +158,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
         )
 
         var showControls = true
-        var setProgressValue = 0
+        var setProgressValue = defaultMinimum
 
         var min = defaultMinimum
         var max = defaultMaximum
@@ -206,7 +205,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
             setSeekBarRange(min, max)
 
-            setProgress(setProgressValue)
+            setProgress(setProgressValue, true)
 
             typedArray.recycle()
         }
@@ -267,11 +266,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
     }
 
     private fun getAdjustedValueRange(): Int {
-        return if (maxValue < 0) {
-            abs(maxValue - minValue)
-        } else {
-            maxValue - minValue
-        }
+        return abs(maxValue - minValue)
     }
 
     private fun isInRange(value: Int): Boolean {

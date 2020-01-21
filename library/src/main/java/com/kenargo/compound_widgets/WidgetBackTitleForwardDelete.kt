@@ -2,7 +2,8 @@ package com.kenargo.compound_widgets
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_back_title_forward_delete.view.*
@@ -19,11 +20,6 @@ class WidgetBackTitleForwardDelete @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.widget_back_title_forward_delete, this, true)
 
         applyAttributes(context, attrs, defStyleAttr)
-
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
 
         imageViewWidgetBackTitleForwardDeletePrevious.setOnClickListener {
             mWidgetBackTitleForwardDeleteListener?.onMovePrevious()

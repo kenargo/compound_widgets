@@ -45,7 +45,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:widgetMinMaxSeekBarEnableAnimation="true"
-            app:widgetMinMaxSeekBarShowControls="false"
+            app:widgetMinMaxSeekBarShowControls="true"
+            android:progress="75"
             app:widgetMinMaxSeekBarMaxValue="100"
             app:widgetMinMaxSeekBarMinValue="-100" />
 
@@ -62,33 +63,11 @@
             android:id="@+id/widgetTitleAndSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progress="145"
+            android:progress="75"
             android:text="This is a title"
-            app:widgetTitleAndSeekBarMaxValue="200"
-            app:widgetTitleAndSeekBarMinValue="0"
-            app:widgetTitleAndSeekBarUnits="inches"
-            tools:ignore="HardcodedText" />
-
-        <View style="@style/Divider.Horizontal" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="WidgetTitleAndSeekBarEditText"
-            tools:ignore="HardcodedText" />
-
-        <com.kenargo.compound_widgets.WidgetTitleAndSeekBarEditText
-            android:id="@+id/widgetTitleAndSeekBarEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:progress="50"
-            android:subtitle="This is a subtitle"
-            android:text="This is a title"
-            app:widgetTitleAndSeekBarEnableAnimation="true"
-            app:widgetTitleAndSeekBarEditTextMaxValue="100"
-            app:widgetTitleAndSeekBarEditTextMinValue="-100"
-            app:widgetTitleAndSeekBarEditTextUnits="inches"
+            app:widgetTitleAndSeekBarMaxValue="100"
+            app:widgetTitleAndSeekBarMinValue="-100"
+            app:widgetTitleAndSeekBarUnits="Inches"
             tools:ignore="HardcodedText" />
 
         <View style="@style/Divider.Horizontal" />
@@ -111,7 +90,29 @@
             app:widgetTitleAndSwitchSeekBarEnableAnimation="true"
             app:widgetTitleAndSwitchSeekBarMaxValue="100"
             app:widgetTitleAndSwitchSeekBarMinValue="0"
-            app:widgetTitleAndSwitchSeekBarUnits="inches"
+            app:widgetTitleAndSwitchSeekBarUnits="Inches"
+            tools:ignore="HardcodedText" />
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="WidgetTitleAndSeekBarEditText"
+            tools:ignore="HardcodedText" />
+
+        <com.kenargo.compound_widgets.WidgetTitleAndSeekBarEditText
+            android:id="@+id/widgetTitleAndSeekBarEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="-50"
+            android:subtitle="This is a subtitle"
+            android:text="This is a title"
+            app:widgetTitleAndSeekBarEnableAnimation="true"
+            app:widgetTitleAndSeekBarEditTextMaxValue="100"
+            app:widgetTitleAndSeekBarEditTextMinValue="-100"
+            app:widgetTitleAndSeekBarEditTextUnits="Meters"
             tools:ignore="HardcodedText" />
 
         <View style="@style/Divider.Horizontal" />

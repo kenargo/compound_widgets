@@ -1,9 +1,11 @@
 package com.kenargo.compound_widgets
 
 import android.content.Context
-import android.os.*
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_play_pause_control.view.*
@@ -50,11 +52,6 @@ class WidgetPlayPauseControl @JvmOverloads constructor(
 
         // Correct, I don't check for null before calling the interactionListener because if there is no interactionListener
         //  then that would be an error on my part and I want to catch it.
-
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
 
         imageViewWidgetPlayPauseControlLoad.setOnClickListener { onWidgetPlayPauseControlListener?.onLoad() }
         imageViewWidgetPlayPauseControlSave.setOnClickListener { onWidgetPlayPauseControlListener?.onSave() }

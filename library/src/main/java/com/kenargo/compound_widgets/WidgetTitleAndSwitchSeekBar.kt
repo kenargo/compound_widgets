@@ -41,17 +41,14 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_switch_seekbar, this, true)
 
-        applyAttributes(context, attrs, defStyleAttr)
+        if (!isInEditMode) {
 
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
+            // com.suke.widget.SwitchButton causes the entire control to not be shown in the visual editor
+            seekBarSwitchWidgetTitleAndSwitchSeekBar.setOnCheckedChangeListener { view: View?, isChecked: Boolean ->
+                seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (isChecked) View.VISIBLE else View.GONE
 
-        seekBarSwitchWidgetTitleAndSwitchSeekBar.setOnCheckedChangeListener { view: View?, isChecked: Boolean ->
-            seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (isChecked) View.VISIBLE else View.GONE
-
-            onCheckedChangeListener?.onCheckedChanged(view, isChecked)
+                onCheckedChangeListener?.onCheckedChanged(view, isChecked)
+            }
         }
 
         seekBarWidgetTitleAndSwitchSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
@@ -68,17 +65,20 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
                 onSeekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
+
+        applyAttributes(context, attrs, defStyleAttr)
     }
 
     private fun updateValueText(value: Int) {
         if (onValueUpdatedListener != null) {
-            textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = onValueUpdatedListener?.onValueUpdated(value)
+            textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = onValueUpdatedListener?.onProgressValueUpdated(value)
         } else {
             textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = value.toString()
         }
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+
         if (attrs == null) {
             return
         }
@@ -87,10 +87,12 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
             attrs, R.styleable.WidgetTitleAndSwitchSeekBar, defStyleAttr, 0
         )
 
-        var attributeProgress = 0
+        var setProgressValue = defaultMinimum
 
         var min = defaultMinimum
         var max = defaultMaximum
+
+        var isSwitchChecked = false
 
         try {
 
@@ -107,7 +109,7 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
                         textViewWidgetTitleAndSwitchSeekBarTitle.text = typedArray.getText(R.styleable.WidgetTitleAndSwitchSeekBar_android_text)
                     }
                     R.styleable.WidgetTitleAndSwitchSeekBar_android_checked -> {
-                        seekBarSwitchWidgetTitleAndSwitchSeekBar.isChecked = typedArray.getBoolean(
+                        isSwitchChecked = typedArray.getBoolean(
                             R.styleable.WidgetTitleAndSwitchSeekBar_android_checked, false
                         )
                     }
@@ -126,17 +128,17 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
                     }
                     R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMinValue -> {
                         min = typedArray.getInt(
-                            R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMinValue, 0
+                            R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMinValue, defaultMinimum
                         )
                     }
                     R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMaxValue -> {
                         max = typedArray.getInt(
-                            R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMaxValue, 100
+                            R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMaxValue, defaultMaximum
                         )
                     }
                     R.styleable.WidgetTitleAndSwitchSeekBar_android_progress -> {
-                        attributeProgress = typedArray.getInt(
-                            R.styleable.WidgetTitleAndSwitchSeekBar_android_progress, 0
+                        setProgressValue = typedArray.getInt(
+                            R.styleable.WidgetTitleAndSwitchSeekBar_android_progress, defaultMinimum
                         )
                     }
                 }
@@ -159,12 +161,11 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
 
             setSeekBarRange(min, max)
 
-            setProgress(attributeProgress)
+            setProgress(setProgressValue)
 
-            // Initial text view update
-            updateValueText(attributeProgress)
+            seekBarSwitchWidgetTitleAndSwitchSeekBar.isChecked = isSwitchChecked
 
-            seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (seekBarSwitchWidgetTitleAndSwitchSeekBar.isChecked) View.VISIBLE else View.GONE
+            seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (isSwitchChecked) View.VISIBLE else View.GONE
 
             typedArray.recycle()
         }
@@ -200,8 +201,8 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
         }
     }
 
-    fun setSeekBarRange(min: Int, max: Int) {
-        seekBarWidgetTitleAndSwitchSeekBar.setSeekBarRange(min, max)
+    fun setSeekBarRange(minimumValue: Int, maximumValue: Int) {
+        seekBarWidgetTitleAndSwitchSeekBar.setSeekBarRange(minimumValue, maximumValue)
     }
 
     fun getProgress(): Int {

@@ -19,11 +19,12 @@ public class CompoundWidgetInterfaces {
         void onCheckedChanged(View view, boolean isChecked);
     }
 
-    public interface OnValueUpdatedListener {
-        String onValueUpdated(int value);
+    public interface OnProgressValueUpdatedListener {
+        String onProgressValueUpdated(int value);
     }
 
-    public interface OnTextEditUpdatedListener {
-        int onValueUpdated(String value);
+    public interface OnValueUpdatedListener {
+        String onProgressValueUpdated(int value);
+        int onUserInputChanged(String value);
     }
 }

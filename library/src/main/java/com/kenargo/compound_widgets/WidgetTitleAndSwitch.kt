@@ -16,10 +16,6 @@ class WidgetTitleAndSwitch @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_switch, this, true)
         applyAttributes(context, attrs, defStyleAttr)
 
-        if (isInEditMode) {
-            return
-        }
-
         widgetLabeledSwitchWidgetTitleAndSwitch.setOnCheckedChangeListener { view: View?, isChecked: Boolean ->
             onCheckedChangeListener?.onCheckedChanged(view, isChecked)
         }

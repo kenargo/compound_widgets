@@ -31,8 +31,8 @@ class ControlsKotlinPreview : AppCompatActivity() {
             }
         })
 
-        widgetTitleAndSeekBar.setOnValueUpdatedListener(CompoundWidgetInterfaces.OnValueUpdatedListener {
-            return@OnValueUpdatedListener "About: $it"
+        widgetTitleAndSeekBar.setOnValueUpdatedListener(CompoundWidgetInterfaces.OnProgressValueUpdatedListener {
+            return@OnProgressValueUpdatedListener "About: $it"
         })
 
         val notificationDialogResourceIds = arrayOf(
@@ -91,9 +91,9 @@ class ControlsKotlinPreview : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 Log.d("ASDF", "Value: $progress")
 
-                widgetTitleAndSwitchSeekBar.setProgress(progress)
-                widgetMinMaxSeekBar.setProgress(progress, true)
-                widgetTitleAndSeekBar.setProgress(progress)
+                //widgetTitleAndSwitchSeekBar.setProgress(progress)
+                //widgetMinMaxSeekBar.setProgress(progress, true)
+                //widgetTitleAndSeekBar.setProgress(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -104,6 +104,23 @@ class ControlsKotlinPreview : AppCompatActivity() {
                 Log.d("ASDF", "Value: ${seekBar!!.progress}")
             }
         })
+
+        //widgetTitleAndSeekBarEditText.setOnValueUpdatedListener(object : OnValueUpdatedListener {
+        //    override fun onProgressValueUpdated(value: Int): String {
+        //        return ">>$value"
+        //    }
+        //
+        //    override fun onUserInputChanged(value: String): Int {
+        //        return try {
+        //            value.substring(2).toInt()
+        //        } catch (ignore: NumberFormatException) {
+        //            // returning MIN_VALUE will result in no change to progress
+        //            Int.MIN_VALUE
+        //        }
+        //    }
+        //})
+        //
+        widgetTitleAndSeekBarEditText.setProgress(0)
 
         widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundWidgetInterfaces.OnCheckedChangeListener { view, isChecked ->
             Toast.makeText(applicationContext, "widgetTitleAndSwitchSeekBar Clicked", Toast.LENGTH_SHORT).show()

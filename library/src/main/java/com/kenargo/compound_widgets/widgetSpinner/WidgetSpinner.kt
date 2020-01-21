@@ -63,11 +63,6 @@ class WidgetSpinner @JvmOverloads constructor(
 
         applyAttributes(context, attrs, defStyleAttr)
 
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
-
         linearLayoutSpinner.setOnClickListener {
 
             if (widgetSpinnerPopupList!!.isShowing) {

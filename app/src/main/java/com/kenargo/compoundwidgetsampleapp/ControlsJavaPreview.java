@@ -71,9 +71,9 @@ public class ControlsJavaPreview extends AppCompatActivity {
             }
         });
 
-        widgetTitleAndSeekBar.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnValueUpdatedListener() {
+        widgetTitleAndSeekBar.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnProgressValueUpdatedListener() {
             @Override
-            public String onValueUpdated(int value) {
+            public String onProgressValueUpdated(int value) {
                 return ">>" + value;
             }
         });
@@ -98,15 +98,12 @@ public class ControlsJavaPreview extends AppCompatActivity {
 
         widgetTitleAndSeekBarEditText.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnValueUpdatedListener() {
             @Override
-            public String onValueUpdated(int value) {
+            public String onProgressValueUpdated(int value) {
                 return ">>" + value;
             }
-        });
 
-        widgetTitleAndSeekBarEditText.setOnTextEditUpdatedListener(new CompoundWidgetInterfaces.OnTextEditUpdatedListener() {
             @Override
-            public int onValueUpdated(String value) {
-
+            public int onUserInputChanged(String value) {
                 try {
                     return Integer.parseInt(value.substring(2));
                 } catch (NumberFormatException ignore) {

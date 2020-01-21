@@ -39,12 +39,6 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         onValueUpdatedListener = listener
     }
 
-    private var onTextEditUpdatedListener: CompoundWidgetInterfaces.OnTextEditUpdatedListener? = null
-
-    fun setOnTextEditUpdatedListener(listener: CompoundWidgetInterfaces.OnTextEditUpdatedListener?) {
-        onTextEditUpdatedListener = listener
-    }
-
     // I'm not exposing the OnTextChange listener because I have a callback interface for conversion from display format to value; that's better I think
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -54,11 +48,6 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         //  just get the pointer only in runtime mode
 
         applyAttributes(context, attrs, defStyleAttr)
-
-        // In edit mode I don't need handlers and callbacks
-        if (isInEditMode) {
-            return
-        }
 
         editTextWidgetTitleAndSeekBarEditTextValue.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -72,8 +61,8 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                     return
                 }
 
-                if (onTextEditUpdatedListener != null) {
-                    seekBarWidgetTitleAndSeekBarEditText.setProgress(onTextEditUpdatedListener?.onValueUpdated(s.toString())!!)
+                if (onValueUpdatedListener != null) {
+                    seekBarWidgetTitleAndSeekBarEditText.setProgress(onValueUpdatedListener?.onUserInputChanged(s.toString())!!)
                 } else {
                     if (isValidNumber(s.toString())) {
                         seekBarWidgetTitleAndSeekBarEditText.setProgress(s.toString().toInt(), false)
@@ -114,7 +103,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
     private fun updateValueText(value: Int) {
 
         if (onValueUpdatedListener != null) {
-            editTextWidgetTitleAndSeekBarEditTextValue.setText(onValueUpdatedListener?.onValueUpdated(value))
+            editTextWidgetTitleAndSeekBarEditTextValue.setText(onValueUpdatedListener?.onProgressValueUpdated(value))
         } else {
             editTextWidgetTitleAndSeekBarEditTextValue.setText(value.toString())
 
@@ -125,6 +114,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
     }
 
     private fun applyAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+
         if (attrs == null) {
             return
         }
@@ -133,10 +123,12 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
             attrs, R.styleable.WidgetTitleAndSeekBarEditText, defStyleAttr, 0
         )
 
-        var setProgressValue = 0
+        var setProgressValue = defaultMinimum
 
         var min = defaultMinimum
         var max = defaultMaximum
+
+        var inputType = Integer.MIN_VALUE
 
         try {
             for (index in 0 until typedArray.length()) {
@@ -177,6 +169,11 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                             R.styleable.WidgetTitleAndSeekBarEditText_android_progress, defaultMinimum
                         )
                     }
+                    R.styleable.WidgetTitleAndSeekBarEditText_android_inputType -> {
+                        inputType = typedArray.getInt(
+                            R.styleable.WidgetTitleAndSeekBarEditText_android_inputType, Integer.MIN_VALUE
+                        )
+                    }
                 }
             }
         } finally {
@@ -190,10 +187,20 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
 
             setSeekBarRange(min, max)
 
-            setProgress(setProgressValue)
+            // If the user didn't specify the inputType then set a reasonable one based on range
+            if (inputType == Integer.MIN_VALUE) {
 
-            // Initial text view update
-            updateValueText(setProgressValue)
+                editTextWidgetTitleAndSeekBarEditTextValue.inputType = if (seekBarWidgetTitleAndSeekBarEditText.getMinValue() < 0) {
+                    InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED
+                } else {
+                    InputType.TYPE_CLASS_NUMBER
+                }
+            } else {
+                editTextWidgetTitleAndSeekBarEditTextValue.inputType = inputType
+            }
+
+            // TextEdit is also updated during the setProgress call
+            setProgress(setProgressValue)
 
             typedArray.recycle()
         }
@@ -230,14 +237,12 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
         }
     }
 
-    fun setSeekBarRange(min: Int, max: Int) {
-        seekBarWidgetTitleAndSeekBarEditText.setSeekBarRange(min, max)
+    fun setSeekBarRange(minimumValue: Int, maximumValue: Int) {
+        seekBarWidgetTitleAndSeekBarEditText.setSeekBarRange(minimumValue, maximumValue)
+    }
 
-        editTextWidgetTitleAndSeekBarEditTextValue.inputType = if (min < 0) {
-            InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED
-        } else {
-            InputType.TYPE_CLASS_NUMBER
-        }
+    fun setInputType(inputType: Int) {
+        editTextWidgetTitleAndSeekBarEditTextValue.inputType = inputType
     }
 
     fun getProgress(): Int {
