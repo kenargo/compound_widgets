@@ -11,10 +11,6 @@ class WidgetBackTitleForwardDelete @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    init {
-        initSubView(context, attrs, defStyleAttr)
-    }
-
     private var mWidgetBackTitleForwardDeleteListener: WidgetBackTitleForwardDeleteListener? = null
 
     private fun initSubView(
@@ -89,5 +85,9 @@ class WidgetBackTitleForwardDelete @JvmOverloads constructor(
         fun onMovePrevious()
         fun onMoveNext()
         fun onDelete()
+    }
+
+    init {
+        initSubView(context, attrs, defStyleAttr)
     }
 }

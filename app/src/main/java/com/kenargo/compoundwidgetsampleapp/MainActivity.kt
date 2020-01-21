@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         singleSelectionView.selectedIndex = (currentDarkModeTheme)
 
-        singleSelectionView.setOnItemSelectedListener(CompoundWidgetInterfaces.SelectedItemChanged {
+        singleSelectionView.setOnSelectedItemChangedListener(CompoundWidgetInterfaces.OnSelectedItemChanged {
             Toast.makeText(this, "SelectedIndex is $it", Toast.LENGTH_SHORT).show()
 
             currentDarkModeTheme = it?.also {

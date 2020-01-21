@@ -53,7 +53,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
             NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
         )
 
-        widgetSpinner.setOnItemSelectedListener(CompoundWidgetInterfaces.SelectedItemChanged {
+        widgetSpinner.setOnSelectedItemChangedListener(CompoundWidgetInterfaces.OnSelectedItemChanged {
 
             it?.let {
 
@@ -109,7 +109,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
             Toast.makeText(applicationContext, "widgetTitleAndSwitchSeekBar Clicked", Toast.LENGTH_SHORT).show()
         })
 
-        widgetTitleAndSpinner.setOnSelectionChange(CompoundWidgetInterfaces.SelectedItemChanged {
+        widgetTitleAndSpinner.setOnSelectedItemChangedListener(CompoundWidgetInterfaces.OnSelectedItemChanged {
             Toast.makeText(applicationContext, "widgetTitleAndSpinner item: $it", Toast.LENGTH_SHORT).show()
         })
     }

@@ -11,7 +11,7 @@ public class CompoundWidgetInterfaces {
     //  MUST KEEP INTERFACES IN JAVA UNTIL KOTLIN 1.4
     ////////////////////////////////////////////////////////////////////
 
-    public interface SelectedItemChanged {
+    public interface OnSelectedItemChanged {
         void onSelectionChange(Integer selectedItem);
     }
 
@@ -21,5 +21,9 @@ public class CompoundWidgetInterfaces {
 
     public interface OnValueUpdatedListener {
         String onValueUpdated(int value);
+    }
+
+    public interface OnTextEditUpdatedListener {
+        int onValueUpdated(String value);
     }
 }

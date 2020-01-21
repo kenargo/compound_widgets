@@ -12,10 +12,6 @@ class WidgetPlayPauseControl @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    init {
-        initSubView(context, attrs!!, defStyleAttr)
-    }
-
     interface OnWidgetPlayPauseControlListener {
         fun onLoad()
         fun onSave()
@@ -224,5 +220,9 @@ class WidgetPlayPauseControl @JvmOverloads constructor(
             imageViewWidgetPlayPauseControlPause.visibility = View.GONE
             imageViewWidgetPlayPauseControlStop.visibility = View.GONE
         }
+    }
+
+    init {
+        initSubView(context, attrs!!, defStyleAttr)
     }
 }

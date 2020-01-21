@@ -6,6 +6,7 @@ import android.text.InputType
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -19,28 +20,26 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    init {
-        initSubView(context, attrs!!, defStyleAttr)
-    }
-
     private var isTouching = false
 
-    private val defaultMaximum = 100
     private val defaultMinimum = 0
+    private val defaultMaximum = 100
 
     // Match the callback from SeekBar so I can maintain code compatibility.
     // Information: SeekBar also has a onStartTrackingTouch(SeekBar seekBar) and onStopTrackingTouch(SeekBar seekBar) but I don't need these yet
-    private var seekBarChangeListener: OnSeekBarChangeListener? = null
+    private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
 
-    fun setOnSeekBarChangeListener(cellSeekBarListener: OnSeekBarChangeListener?) {
-        seekBarChangeListener = cellSeekBarListener
+    fun setOnSeekBarChangeListener(listener: OnSeekBarChangeListener?) {
+        onSeekBarChangeListener = listener
     }
 
-    private var valueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
+    private var onValueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
 
-    fun setOnValueUpdatedListener(valueChangeLister: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
-        valueUpdatedListener = valueChangeLister
+    fun setOnValueUpdatedListener(listener: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
+        onValueUpdatedListener = listener
     }
+
+    // I'm not exposing the OnTextChange listener because I have a callback interface for conversion from display format to value; that's better I think
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_seekbar_edit_text, this, true)
@@ -75,16 +74,19 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
 
         seekBarWidgetTitleAndSeekBarEditText.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+                Log.d("ASDF", "seekBarWidgetTitleAndSeekBarEditText.setOnSeekBarChangeListener, value=$progress, fromUser=$fromUser")
+
                 if (fromUser) {
                     hideKeyboard()
                     updateValueText(getProgress())
                 }
 
-                seekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
+                onSeekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                seekBarChangeListener?.onStartTrackingTouch(seekBar)
+                onSeekBarChangeListener?.onStartTrackingTouch(seekBar)
                 isTouching = true
 
                 editTextWidgetTitleAndSeekBarEditTextValue.isFocusableInTouchMode = false
@@ -92,7 +94,7 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                seekBarChangeListener?.onStopTrackingTouch(seekBar)
+                onSeekBarChangeListener?.onStopTrackingTouch(seekBar)
                 isTouching = false
                 editTextWidgetTitleAndSeekBarEditTextValue.isFocusableInTouchMode = true
             }
@@ -101,10 +103,11 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
 
     private fun updateValueText(value: Int) {
 
-        if (valueUpdatedListener != null) {
-            editTextWidgetTitleAndSeekBarEditTextValue.setText(valueUpdatedListener?.onValueUpdated(value))
+        if (onValueUpdatedListener != null) {
+            editTextWidgetTitleAndSeekBarEditTextValue.setText(onValueUpdatedListener?.onValueUpdated(value))
         } else {
             editTextWidgetTitleAndSeekBarEditTextValue.setText(value.toString())
+
             editTextWidgetTitleAndSeekBarEditTextValue.setSelection(
                 editTextWidgetTitleAndSeekBarEditTextValue.text.length
             )
@@ -232,6 +235,16 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
     }
 
     @JvmOverloads fun setProgress(value: Int, immediate: Boolean = true) {
+        Log.d("ASDF", "setProgress = $value")
+
+        // As EditText is not updated during onProgressChanged (unless it's fromUser), I need to update it during the setProgress call
+        //  or the EditText will not show the correct value
+        updateValueText(value)
+
         seekBarWidgetTitleAndSeekBarEditText.setProgress(value, immediate)
+    }
+
+    init {
+        initSubView(context, attrs!!, defStyleAttr)
     }
 }

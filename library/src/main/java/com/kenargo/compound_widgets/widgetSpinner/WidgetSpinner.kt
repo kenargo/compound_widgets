@@ -29,10 +29,6 @@ class WidgetSpinner @JvmOverloads constructor(
 
     var maxItemDisplay = -1
 
-    init {
-        initSubView(context, attrs, defStyleAttr)
-    }
-
     private fun getHeightOfSingleItem(): Int {
         // Height of the recyclerview items (widget_spinner_item) is fixed at 44dp
         return context.resources.getDimension(R.dimen.common_44dp).toInt()
@@ -43,10 +39,10 @@ class WidgetSpinner @JvmOverloads constructor(
         return getHeightOfSingleItem() * widgetSpinnerAdapter!!.itemCount
     }
 
-    private var onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged? = null
+    private var onSelectedItemChanged: CompoundWidgetInterfaces.OnSelectedItemChanged? = null
 
-    fun setOnItemSelectedListener(onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged?) {
-        this.onItemSelectionChanged = onItemSelectionChanged
+    fun setOnSelectedItemChangedListener(listener: CompoundWidgetInterfaces.OnSelectedItemChanged?) {
+        this.onSelectedItemChanged = listener
     }
 
     var selectedIndex = 0
@@ -85,7 +81,7 @@ class WidgetSpinner @JvmOverloads constructor(
             }
         }
 
-        initializePopupWindow(CompoundWidgetInterfaces.SelectedItemChanged { position: Int? ->
+        initializePopupWindow(CompoundWidgetInterfaces.OnSelectedItemChanged { position: Int? ->
 
             widgetSpinnerPopupList!!.dismiss()
 
@@ -96,7 +92,7 @@ class WidgetSpinner @JvmOverloads constructor(
             widgetSpinnerAdapter!!.setCurrentIndex(position)
             widgetSpinnerAdapter!!.notifyDataSetChanged()
 
-            onItemSelectionChanged?.onSelectionChange(position)
+            onSelectedItemChanged?.onSelectionChange(position)
         })
     }
 
@@ -152,7 +148,7 @@ class WidgetSpinner @JvmOverloads constructor(
         }
     }
 
-    private fun initializePopupWindow(onSelectedListener: CompoundWidgetInterfaces.SelectedItemChanged)  {
+    private fun initializePopupWindow(onOnSelectedListener: CompoundWidgetInterfaces.OnSelectedItemChanged)  {
 
         val showView = LayoutInflater.from(context).inflate(R.layout.widget_spinner_drop_down, null)
 
@@ -161,7 +157,7 @@ class WidgetSpinner @JvmOverloads constructor(
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        widgetSpinnerAdapter = WidgetSpinnerAdapter(context, itemsList, onSelectedListener)
+        widgetSpinnerAdapter = WidgetSpinnerAdapter(context, itemsList, onOnSelectedListener)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = widgetSpinnerAdapter
@@ -278,5 +274,9 @@ class WidgetSpinner @JvmOverloads constructor(
         }
 
         return itemsList[maxLengthItem]
+    }
+
+    init {
+        initSubView(context, attrs, defStyleAttr)
     }
 }

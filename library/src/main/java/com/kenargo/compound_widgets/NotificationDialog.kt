@@ -378,8 +378,8 @@ class NotificationDialog : DialogFragment() {
             this.cancelable = cancelable
         }
 
-        fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener?) = apply {
-            this.onDismissListener = onDismissListener
+        fun setOnDismissListener(listener: DialogInterface.OnDismissListener?) = apply {
+            this.onDismissListener = listener
         }
 
         fun setOnClickListener(listener: DialogInterface.OnClickListener?) = apply {

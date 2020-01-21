@@ -12,23 +12,19 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    init {
-        initSubView(context, attrs!!, defStyleAttr)
-    }
+    private var onSelectedItemChanged: CompoundWidgetInterfaces.OnSelectedItemChanged? = null
 
-    private var onSelectionChangeListener: CompoundWidgetInterfaces.SelectedItemChanged? = null
-
-    fun setOnSelectionChange(listener: CompoundWidgetInterfaces.SelectedItemChanged) {
-        onSelectionChangeListener = listener
+    fun setOnSelectedItemChangedListener(listener: CompoundWidgetInterfaces.OnSelectedItemChanged) {
+        onSelectedItemChanged = listener
     }
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_spinner, this, true)
         applyAttributes(context, attrs, defStyleAttr)
 
-        widgetSpinnerWidgetTitleAndSpinner.setOnItemSelectedListener(CompoundWidgetInterfaces.SelectedItemChanged {
+        widgetSpinnerWidgetTitleAndSpinner.setOnSelectedItemChangedListener(CompoundWidgetInterfaces.OnSelectedItemChanged {
             // Now call the creator with the new selection
-            onSelectionChangeListener?.onSelectionChange(it)
+            onSelectedItemChanged?.onSelectionChange(it)
         })
     }
 
@@ -98,5 +94,9 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
 
     fun setTitle(title: CharSequence?) {
         textViewWidgetTitleAndSpinnerTitle.text = title
+    }
+
+    init {
+        initSubView(context, attrs!!, defStyleAttr)
     }
 }

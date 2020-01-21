@@ -3,6 +3,7 @@ package com.kenargo.compound_widgets
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -12,27 +13,26 @@ import android.widget.SeekBar
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_min_max_seek_bar.view.*
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 class WidgetMinMaxSeekBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val defaultMaximum = 100
     private val defaultMinimum = 0
+    private val defaultMaximum = 100
+
     private val animationDuration = 250
 
     private val defaultInitialTouchTime = 100
     private val defaultRepeatDelayTime = 400
     private val secondRepeatDelay = 200
 
-    init {
-        initSubView(context, attrs!!, defStyleAttr)
-    }
-
     var animateChanges = true
 
-    private var minValue = 0
-    private var maxValue = 100
+    private var minValue = defaultMinimum
+    private var maxValue = defaultMaximum
 
     private var progress = 0
 
@@ -76,10 +76,10 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
     // Match the callback from SeekBar so I can maintain code compatibility.
     // Information: SeekBar also has a onStartTrackingTouch(SeekBar seekBar) and onStopTrackingTouch(SeekBar seekBar) but I don't need these yet
-    private var seekBarChangeListener: SeekBar.OnSeekBarChangeListener? = null
+    private var onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener? = null
 
-    fun setOnSeekBarChangeListener(cellSeekBarListener: SeekBar.OnSeekBarChangeListener?) {
-        seekBarChangeListener = cellSeekBarListener
+    fun setOnSeekBarChangeListener(listener: SeekBar.OnSeekBarChangeListener?) {
+        onSeekBarChangeListener = listener
     }
 
     var overrideFromUser = false
@@ -113,9 +113,11 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
         seekBarWidgetMinMaxSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
+                Log.d("ASDF", "seekBarWidgetMinMaxSeekBar.setOnSeekBarChangeListener: value=$progress, fromUser=$fromUser")
+
                 this@WidgetMinMaxSeekBar.progress = userValueToProgress(progress)
 
-                seekBarChangeListener?.onProgressChanged(
+                onSeekBarChangeListener?.onProgressChanged(
                     seekBar, this@WidgetMinMaxSeekBar.progress, (fromUser or overrideFromUser)
                 )
 
@@ -126,12 +128,12 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 progress = userValueToProgress(seekBar!!.progress)
-                seekBarChangeListener?.onStartTrackingTouch(seekBar)
+                onSeekBarChangeListener?.onStartTrackingTouch(seekBar)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 progress = userValueToProgress(seekBar!!.progress)
-                seekBarChangeListener?.onStopTrackingTouch(seekBar)
+                onSeekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
     }
@@ -179,16 +181,16 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
                     }
                     R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarMinValue -> {
                         min = typedArray.getInt(
-                            R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarMinValue, 0
+                            R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarMinValue, defaultMinimum
                         )
                     }
                     R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarMaxValue -> {
                         max = typedArray.getInt(
-                            R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarMaxValue, 100
+                            R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarMaxValue, defaultMaximum
                         )
                     }
                     R.styleable.WidgetMinMaxSeekBar_android_progress -> {
-                        setProgressValue = typedArray.getInt(R.styleable.WidgetMinMaxSeekBar_android_progress, 0)
+                        setProgressValue = typedArray.getInt(R.styleable.WidgetMinMaxSeekBar_android_progress, defaultMinimum)
                     }
                 }
             }
@@ -239,13 +241,8 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
 
     fun setSeekBarRange(minimumValue: Int, maximumValue: Int) {
 
-        if (minimumValue > maximumValue) {
-            minValue = defaultMinimum
-            maxValue = defaultMaximum
-        } else {
-            minValue = minimumValue
-            maxValue = maximumValue
-        }
+        minValue = min(maximumValue, minimumValue)
+        maxValue = max(maximumValue, minimumValue)
 
         seekBarWidgetMinMaxSeekBar.max = getAdjustedValueRange()
 
@@ -298,5 +295,9 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
         }
 
         seekBarAnimator.start()
+    }
+
+    init {
+        initSubView(context, attrs!!, defStyleAttr)
     }
 }

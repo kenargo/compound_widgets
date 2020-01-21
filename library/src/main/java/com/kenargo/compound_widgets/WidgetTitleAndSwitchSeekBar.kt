@@ -15,31 +15,27 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    init {
-        initSubView(context, attrs!!, defStyleAttr)
-    }
-
     private val defaultMaximum = 100
     private val defaultMinimum = 0
 
     // Match the callback from SeekBar so I can maintain code compatibility.
     // Information: SeekBar also has a onStartTrackingTouch(SeekBar seekBar) and onStopTrackingTouch(SeekBar seekBar) but I don't need these yet
-    private var seekBarChangeListener: OnSeekBarChangeListener? = null
+    private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
 
-    fun setOnSeekBarChangeListener(seekBarChangeListener: OnSeekBarChangeListener?) {
-        this.seekBarChangeListener = seekBarChangeListener
+    fun setOnSeekBarChangeListener(listener: OnSeekBarChangeListener?) {
+        this.onSeekBarChangeListener = listener
     }
 
     private var onCheckedChangeListener: CompoundWidgetInterfaces.OnCheckedChangeListener? = null
 
-    fun setOnCheckedChangedListener(onCheckedChangeListener: CompoundWidgetInterfaces.OnCheckedChangeListener?) {
-        this.onCheckedChangeListener = onCheckedChangeListener
+    fun setOnCheckedChangedListener(listener: CompoundWidgetInterfaces.OnCheckedChangeListener?) {
+        this.onCheckedChangeListener = listener
     }
 
-    private var valueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
+    private var onValueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
 
-    fun setOnValueUpdatedListener(valueChangeLister: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
-        valueUpdatedListener = valueChangeLister
+    fun setOnValueUpdatedListener(listener: CompoundWidgetInterfaces.OnValueUpdatedListener?) {
+        onValueUpdatedListener = listener
     }
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
@@ -61,24 +57,22 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
         seekBarWidgetTitleAndSwitchSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 updateValueText(getProgress())
-                seekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
+                onSeekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                updateValueText(getProgress())
-                seekBarChangeListener?.onStartTrackingTouch(seekBar)
+                onSeekBarChangeListener?.onStartTrackingTouch(seekBar)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                updateValueText(getProgress())
-                seekBarChangeListener?.onStopTrackingTouch(seekBar)
+                onSeekBarChangeListener?.onStopTrackingTouch(seekBar)
             }
         })
     }
 
     private fun updateValueText(value: Int) {
-        if (valueUpdatedListener != null) {
-            textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = valueUpdatedListener?.onValueUpdated(value)
+        if (onValueUpdatedListener != null) {
+            textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = onValueUpdatedListener?.onValueUpdated(value)
         } else {
             textViewWidgetTitleAndSwitchSeekBarSeekBarValue.text = value.toString()
         }
@@ -221,5 +215,9 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
     fun setChecked(isChecked: Boolean) {
         seekBarSwitchWidgetTitleAndSwitchSeekBar.isChecked = isChecked
         seekBarGroupWidgetTitleAndSwitchSeekBar.visibility = if (isChecked) View.VISIBLE else View.GONE
+    }
+
+    init {
+        initSubView(context, attrs!!, defStyleAttr)
     }
 }

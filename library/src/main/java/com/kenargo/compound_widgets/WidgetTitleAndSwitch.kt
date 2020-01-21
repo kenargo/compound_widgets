@@ -12,10 +12,6 @@ class WidgetTitleAndSwitch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    init {
-        initSubView(context, attrs!!, defStyleAttr)
-    }
-
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_switch, this, true)
         applyAttributes(context, attrs, defStyleAttr)
@@ -89,5 +85,9 @@ class WidgetTitleAndSwitch @JvmOverloads constructor(
 
     fun setOnCheckedChangeListener(listener: CompoundWidgetInterfaces.OnCheckedChangeListener?) {
         onCheckedChangeListener = listener
+    }
+
+    init {
+        initSubView(context, attrs!!, defStyleAttr)
     }
 }

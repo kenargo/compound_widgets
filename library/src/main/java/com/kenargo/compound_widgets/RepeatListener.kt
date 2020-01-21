@@ -50,15 +50,6 @@ class RepeatListener(
     private var clickListener: View.OnClickListener
     private var touchedView: View? = null
 
-    init {
-        require(!(initialInterval < 0 || initialRepeatDelay < 0)) { "negative intervals not allowed" }
-
-        this.initialInterval = initialRepeatDelay
-        this.initialRepeatDelay = initialInterval
-
-        this.clickListener = clickListener
-    }
-
     private val handlerRunnable: Runnable = run {
         Runnable {
             if (touchedView!!.isEnabled) {
@@ -95,5 +86,14 @@ class RepeatListener(
         }
 
         return false
+    }
+
+    init {
+        require(!(initialInterval < 0 || initialRepeatDelay < 0)) { "negative intervals not allowed" }
+
+        this.initialInterval = initialRepeatDelay
+        this.initialRepeatDelay = initialInterval
+
+        this.clickListener = clickListener
     }
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kenargo.compound_widgets.CompoundWidgetInterfaces;
 import com.kenargo.compound_widgets.NotificationDialog;
+import com.kenargo.compound_widgets.WidgetTitleAndSeekBar;
 import com.kenargo.compound_widgets.WidgetTitleAndSeekBarEditText;
 import com.kenargo.compound_widgets.widgetSpinner.WidgetSpinner;
 
@@ -41,7 +42,7 @@ public class ControlsJavaPreview extends AppCompatActivity {
 
         WidgetSpinner widgetSpinner = findViewById(R.id.widgetSpinner);
 
-        widgetSpinner.setOnItemSelectedListener(selectedItem -> {
+        widgetSpinner.setOnSelectedItemChangedListener(selectedItem -> {
 
             if (selectedItem != null) {
                 new NotificationDialog.Builder(ControlsJavaPreview.this)
@@ -54,9 +55,32 @@ public class ControlsJavaPreview extends AppCompatActivity {
             }
         });
 
-        WidgetTitleAndSeekBarEditText widgetTitleAndSeekBarEditText = findViewById(R.id.widgetTitleAndSeekBarEditText);
+        WidgetTitleAndSeekBar widgetTitleAndSeekBar = findViewById(R.id.widgetTitleAndSeekBar);
 
-        widgetTitleAndSeekBarEditText.setProgress(50);
+        widgetTitleAndSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        widgetTitleAndSeekBar.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnValueUpdatedListener() {
+            @Override
+            public String onValueUpdated(int value) {
+                return ">>" + value;
+            }
+        });
+
+        widgetTitleAndSeekBar.setProgress(50);
+
+        WidgetTitleAndSeekBarEditText widgetTitleAndSeekBarEditText = findViewById(R.id.widgetTitleAndSeekBarEditText);
 
         widgetTitleAndSeekBarEditText.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -75,9 +99,10 @@ public class ControlsJavaPreview extends AppCompatActivity {
         widgetTitleAndSeekBarEditText.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnValueUpdatedListener() {
             @Override
             public String onValueUpdated(int value) {
-                return Float.toHexString(value);
+                return ">>" + value;
             }
         });
 
+        widgetTitleAndSeekBarEditText.setProgress(50);
     }
 }

@@ -18,33 +18,33 @@ open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
 
     private var selectPosition = -1
 
-    private var onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged
+    private var onSelectedItemChanged: CompoundWidgetInterfaces.OnSelectedItemChanged
 
-    fun setOnItemClickListener(onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged) {
-        this.onItemSelectionChanged = onItemSelectionChanged
+    fun setOnSelectedItemChangedListener(listener: CompoundWidgetInterfaces.OnSelectedItemChanged) {
+        this.onSelectedItemChanged = listener
     }
 
     constructor(
-        context: Context, list: List<String>, position: Int, onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged
+            context: Context, list: List<String>, position: Int, onItemSelectionChangedOn: CompoundWidgetInterfaces.OnSelectedItemChanged
     ) {
         this.context = context
         mList = list
-        this.onItemSelectionChanged = onItemSelectionChanged
+        this.onSelectedItemChanged = onItemSelectionChangedOn
         selectPosition = position
     }
 
     constructor(
-        context: Context, list: List<String>, onItemSelectionChanged: CompoundWidgetInterfaces.SelectedItemChanged
+            context: Context, list: List<String>, onItemSelectionChangedOn: CompoundWidgetInterfaces.OnSelectedItemChanged
     ) {
         this.context = context
         mList = list
-        this.onItemSelectionChanged = onItemSelectionChanged
+        this.onSelectedItemChanged = onItemSelectionChangedOn
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.widget_spinner_item, parent, false)
         val widgetViewHolder = WidgetViewHolder(view)
-        view.setOnClickListener { onItemSelectionChanged.onSelectionChange(widgetViewHolder.adapterPosition) }
+        view.setOnClickListener { onSelectedItemChanged.onSelectionChange(widgetViewHolder.adapterPosition) }
         return widgetViewHolder
     }
 
