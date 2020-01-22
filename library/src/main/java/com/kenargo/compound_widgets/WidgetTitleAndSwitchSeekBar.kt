@@ -123,7 +123,7 @@ class WidgetTitleAndSwitchSeekBar @JvmOverloads constructor(
                     }
                     R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarEnableAnimation -> {
                         seekBarWidgetTitleAndSwitchSeekBar.animateChanges = typedArray.getBoolean(
-                            R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarEnableAnimation, true
+                            R.styleable.WidgetTitleAndSeekBar_widgetTitleAndSeekBarEnableAnimation, false
                         )
                     }
                     R.styleable.WidgetTitleAndSwitchSeekBar_widgetTitleAndSwitchSeekBarMinValue -> {

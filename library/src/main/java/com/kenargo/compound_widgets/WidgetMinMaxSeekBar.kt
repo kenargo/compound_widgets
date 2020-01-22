@@ -29,7 +29,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
     private val defaultInitialTouchTime = 100
     private val defaultRepeatDelayTime = 400
 
-    var animateChanges = true
+    var animateChanges = false
 
     private var minValue = defaultMinimum
     private var maxValue = defaultMaximum
@@ -176,7 +176,7 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
                 when (attribute) {
                     R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarEnableAnimation -> {
                         animateChanges = typedArray.getBoolean(
-                            R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarEnableAnimation, true
+                            R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarEnableAnimation, false
                         )
                     }
                     R.styleable.WidgetMinMaxSeekBar_widgetMinMaxSeekBarShowControls -> {
