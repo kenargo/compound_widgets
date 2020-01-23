@@ -182,15 +182,14 @@ class NotificationDialog : DialogFragment() {
 
         builder.positiveButton?.let { textViewNotificationDialogPositiveResponse?.text = it }
 
-        builder.progress?.let { progressBarNotificationDialog?.progress = it }
-
+        builder.progress?.let { progressBarNotificationDialog?.setProgress(it) }
         builder.progressIndeterminant?.let { progressBarNotificationDialog?.isIndeterminate = it }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.progressMin?.let { progressBarNotificationDialog!!.min = it }
+            builder.progressMin?.let { progressBarNotificationDialog?.min = it }
         }
 
-        builder.progressMax?.let { progressBarNotificationDialog!!.max = it }
+        builder.progressMax?.let { progressBarNotificationDialog?.max = it }
 
         if (builder.cancelable || builder.timeout != null) {
             // If the caller specified cancellable or this is a timeout dialog (which should allow
@@ -198,25 +197,19 @@ class NotificationDialog : DialogFragment() {
             isCancelable = true
         }
 
-        textViewNotificationDialogNegativeResponse?.let {
-            textViewNotificationDialogNegativeResponse!!.setOnClickListener {
-                dismiss()
-                builder.onClickListener?.onClick(null, DialogInterface.BUTTON_NEGATIVE)
-            }
+        textViewNotificationDialogNegativeResponse?.setOnClickListener {
+            dismiss()
+            builder.onClickListener?.onClick(null, DialogInterface.BUTTON_NEGATIVE)
         }
 
-        textViewNotificationDialogNeutralResponse?.let {
-            textViewNotificationDialogNeutralResponse!!.setOnClickListener {
-                dismiss()
-                builder.onClickListener?.onClick(null, DialogInterface.BUTTON_NEUTRAL)
-            }
+        textViewNotificationDialogNeutralResponse?.setOnClickListener {
+            dismiss()
+            builder.onClickListener?.onClick(null, DialogInterface.BUTTON_NEUTRAL)
         }
 
-        textViewNotificationDialogPositiveResponse?.let {
-            textViewNotificationDialogPositiveResponse!!.setOnClickListener {
-                dismiss()
-                builder.onClickListener?.onClick(null, DialogInterface.BUTTON_POSITIVE)
-            }
+        textViewNotificationDialogPositiveResponse?.setOnClickListener {
+            dismiss()
+            builder.onClickListener?.onClick(null, DialogInterface.BUTTON_POSITIVE)
         }
     }
 
