@@ -30,11 +30,22 @@ class NotificationDialog : DialogFragment() {
     private var textViewNotificationDialogPositiveResponse: Button? = null
     private var progressBarNotificationDialog: ProgressBar? = null
     private var widgetTitleAndSeekBarNotificationDialog: WidgetTitleAndSeekBar? = null
+    private var widgetTitleAndSeekBarEditTextNotificationDialog: WidgetTitleAndSeekBarEditText? = null
     private var editTextNavigationDialog: EditText? = null
 
     val progress: Int
         get() {
-            return widgetTitleAndSeekBarNotificationDialog!!.getProgress()
+            return when {
+                widgetTitleAndSeekBarEditTextNotificationDialog != null -> {
+                    widgetTitleAndSeekBarEditTextNotificationDialog!!.getProgress()
+                }
+                widgetTitleAndSeekBarNotificationDialog != null -> {
+                    widgetTitleAndSeekBarNotificationDialog!!.getProgress()
+                }
+                else -> {
+                    throw NullPointerException("Control value not found")
+                }
+            }
         }
 
     val isChecked: Boolean
@@ -53,16 +64,19 @@ class NotificationDialog : DialogFragment() {
         ONE_BUTTON_AND_PROGRESS,
         ONE_BUTTONS_AND_EDIT_TEXT,
         ONE_BUTTONS_AND_SEEKBAR,
+        ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
         TWO_BUTTONS,
         TWO_BUTTONS_NO_TITLE,
         TWO_BUTTONS_AND_PROGRESS,
         TWO_BUTTONS_AND_EDIT_TEXT,
         TWO_BUTTONS_AND_SEEKBAR,
+        TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
         THREE_BUTTONS,
         THREE_BUTTONS_NO_TITLE,
         THREE_BUTTONS_AND_PROGRESS,
         THREE_BUTTONS_AND_EDIT_TEXT,
-        THREE_BUTTONS_AND_SEEKBAR
+        THREE_BUTTONS_AND_SEEKBAR,
+        THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
     }
 
     private lateinit var builder: Builder
@@ -88,6 +102,10 @@ class NotificationDialog : DialogFragment() {
 
             NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR -> {
                 layoutResourceID = R.layout.notification_seekbar_dialog
+            }
+
+            NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
+                layoutResourceID = R.layout.notification_seekbar_edit_text_dialog
             }
 
             // Covered by else:
@@ -130,6 +148,7 @@ class NotificationDialog : DialogFragment() {
         progressBarNotificationDialog = view.findViewById(R.id.progressBarNotificationDialog)
 
         widgetTitleAndSeekBarNotificationDialog = view.findViewById(R.id.widgetTitleAndSeekBarNotificationDialog)
+        widgetTitleAndSeekBarEditTextNotificationDialog = view.findViewById(R.id.widgetTitleAndSeekBarEditTextNotificationDialog)
 
         editTextNavigationDialog = view.findViewById(R.id.editTextNavigationDialog)
 
@@ -137,7 +156,7 @@ class NotificationDialog : DialogFragment() {
         val dividerNotificationDialogNeutralResponse = view.findViewById<View>(R.id.dividerNotificationDialogNeutralResponse)
 
         when (builder.notificationDialogType) {
-            NotificationDialogTypes.ONE_BUTTON, NotificationDialogTypes.ONE_BUTTON_AND_PROGRESS, NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR -> {
+            NotificationDialogTypes.ONE_BUTTON, NotificationDialogTypes.ONE_BUTTON_AND_PROGRESS, NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
                 textViewNotificationDialogNegativeResponse!!.visibility = View.GONE
                 dividerNotificationDialogNegativeResponse.visibility = View.GONE
 
@@ -155,7 +174,7 @@ class NotificationDialog : DialogFragment() {
                 groupTitleAndHeader.visibility = View.GONE
             }
 
-            NotificationDialogTypes.TWO_BUTTONS, NotificationDialogTypes.TWO_BUTTONS_AND_PROGRESS, NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR -> {
+            NotificationDialogTypes.TWO_BUTTONS, NotificationDialogTypes.TWO_BUTTONS_AND_PROGRESS, NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
                 textViewNotificationDialogNeutralResponse!!.visibility = View.GONE
                 dividerNotificationDialogNeutralResponse.visibility = View.GONE
             }
@@ -166,7 +185,7 @@ class NotificationDialog : DialogFragment() {
                 groupTitleAndHeader.visibility = View.GONE
             }
 
-            NotificationDialogTypes.THREE_BUTTONS, NotificationDialogTypes.THREE_BUTTONS_AND_PROGRESS, NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR -> {
+            NotificationDialogTypes.THREE_BUTTONS, NotificationDialogTypes.THREE_BUTTONS_AND_PROGRESS, NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
             }
 
             NotificationDialogTypes.THREE_BUTTONS_NO_TITLE -> {
@@ -175,7 +194,6 @@ class NotificationDialog : DialogFragment() {
         }
 
         // Callbacks setup:
-
         textViewNotificationDialogNegativeResponse?.setOnClickListener {
             dismiss()
             builder.onClickListener?.onClick(this, DialogInterface.BUTTON_NEGATIVE)
@@ -195,6 +213,16 @@ class NotificationDialog : DialogFragment() {
             return@OnProgressValueUpdatedListener builder.onProgressValueUpdatedListener?.onProgressValueUpdated(it)
         })
 
+        widgetTitleAndSeekBarEditTextNotificationDialog?.setOnValueUpdatedListener(object: CompoundWidgetInterfaces.OnValueUpdatedListener {
+            override fun onProgressValueUpdated(value: Int): String {
+                return builder.onValueUpdatedListener?.onProgressValueUpdated(value)!!
+            }
+
+            override fun onUserInputChanged(value: String?): Int {
+                return builder.onValueUpdatedListener?.onUserInputChanged(value)!!
+            }
+        })
+
         builder.timeout?.let { timeout = it }
 
         builder.notificationDialogIcon?.let { setType(it) }
@@ -202,6 +230,11 @@ class NotificationDialog : DialogFragment() {
         builder.title?.let { textViewNotificationDialogTitle!!.text = it }
 
         builder.message?.let { textViewNotificationDialogMessage!!.text = it }
+
+        builder.unitsText?.let {
+            widgetTitleAndSeekBarNotificationDialog?.setUnitsText(it)
+            widgetTitleAndSeekBarEditTextNotificationDialog?.setUnitsText(it)
+        }
 
         // More information text setup:
         builder.descriptionText?.let { textViewNotificationDialogDescription?.setContentText(it.toString()) }
@@ -221,12 +254,14 @@ class NotificationDialog : DialogFragment() {
         // Note: When setting up the SeekBar it's important to setup the range before progress!
         if (builder.progressMin != null && builder.progressMax != null) {
             widgetTitleAndSeekBarNotificationDialog?.setSeekBarRange(builder.progressMin!!, builder.progressMax!!)
+            widgetTitleAndSeekBarEditTextNotificationDialog?.setSeekBarRange(builder.progressMin!!, builder.progressMax!!)
         }
 
         // ProgressBar and SeekBar setup:
         builder.progress?.let {
             progressBarNotificationDialog?.setProgress(it)
             widgetTitleAndSeekBarNotificationDialog?.setProgress(it)
+            widgetTitleAndSeekBarEditTextNotificationDialog?.setProgress(it)
         }
 
         builder.progressIndeterminant?.let { progressBarNotificationDialog?.isIndeterminate = it }
@@ -360,6 +395,9 @@ class NotificationDialog : DialogFragment() {
         var progressMax: Int? = null
             private set
 
+        var unitsText: String? = null
+            private set
+
         var cancelable: Boolean = false
             private set
 
@@ -370,6 +408,9 @@ class NotificationDialog : DialogFragment() {
             private set
 
         var onProgressValueUpdatedListener: CompoundWidgetInterfaces.OnProgressValueUpdatedListener? = null
+            private set
+
+        var onValueUpdatedListener: CompoundWidgetInterfaces.OnValueUpdatedListener? = null
             private set
 
         fun build(): NotificationDialog {
@@ -432,6 +473,10 @@ class NotificationDialog : DialogFragment() {
             this.progressMax = max
         }
 
+        fun setUnitsText(text: String) = apply {
+            this.unitsText = text
+        }
+
         fun setCancelable(cancelable: Boolean) = apply {
             this.cancelable = cancelable
         }
@@ -446,6 +491,10 @@ class NotificationDialog : DialogFragment() {
 
         fun setOnProgressValueUpdatedListener(listener: CompoundWidgetInterfaces.OnProgressValueUpdatedListener?) = apply {
             this.onProgressValueUpdatedListener = listener
+        }
+
+        fun setOnValueUpdatedListener(listener: CompoundWidgetInterfaces.OnValueUpdatedListener?) = apply {
+            this.onValueUpdatedListener = listener
         }
     }
 

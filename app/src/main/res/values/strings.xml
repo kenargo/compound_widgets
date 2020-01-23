@@ -15,16 +15,19 @@
         <item>ONE_BUTTON_AND_PROGRESS</item>
         <item>ONE_BUTTONS_AND_EDIT_TEXT</item>
         <item>ONE_BUTTONS_AND_SEEKBAR</item>
+        <item>ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT</item>
         <item>TWO_BUTTONS</item>
         <item>TWO_BUTTONS_NO_TITLE</item>
         <item>TWO_BUTTONS_AND_PROGRESS</item>
         <item>TWO_BUTTONS_AND_EDIT_TEXT</item>
         <item>TWO_BUTTONS_AND_SEEKBAR</item>
+        <item>TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT</item>
         <item>THREE_BUTTONS</item>
         <item>THREE_BUTTONS_NO_TITLE</item>
         <item>THREE_BUTTONS_AND_PROGRESS</item>
         <item>THREE_BUTTONS_AND_EDIT_TEXT</item>
         <item>THREE_BUTTONS_AND_SEEKBAR</item>
+        <item>THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT</item>
     </string-array>
 
 </resources>

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##[1.4.0]
+##Changed
+- Changed to library's callbacks for NotificationDialog so values can be read by caller
+##Added
+- Added CheckBox to some NotificationDialogs and exposed access in builder for same
+- Exposed properties of MinMaxSeekBar and added ability to read user inputs from NotificationDialogs
+- Added SeekBar EditText UI variant for NotificationDialog
+
 ##[1.3.1]
 ### Changed
 - Default for animate progress bar changed to false (was true)

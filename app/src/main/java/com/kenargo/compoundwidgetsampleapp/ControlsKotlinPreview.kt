@@ -40,16 +40,21 @@ class ControlsKotlinPreview : AppCompatActivity() {
             NotificationDialogTypes.ONE_BUTTON_AND_PROGRESS,
             NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT,
             NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR,
+            NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
+
             NotificationDialogTypes.TWO_BUTTONS,
             NotificationDialogTypes.TWO_BUTTONS_NO_TITLE,
             NotificationDialogTypes.TWO_BUTTONS_AND_PROGRESS,
             NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT,
             NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR,
+            NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
+
             NotificationDialogTypes.THREE_BUTTONS,
             NotificationDialogTypes.THREE_BUTTONS_NO_TITLE,
             NotificationDialogTypes.THREE_BUTTONS_AND_PROGRESS,
             NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT,
-            NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
+            NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR,
+            NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT
         )
 
         widgetSpinner.setOnSelectedItemChangedListener(CompoundWidgetInterfaces.OnSelectedItemChanged {

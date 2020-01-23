@@ -26,18 +26,21 @@ public class ControlsJavaPreview extends AppCompatActivity {
                 NotificationDialog.NotificationDialogTypes.ONE_BUTTON_AND_PROGRESS,
                 NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT,
                 NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR,
+                NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
 
                 NotificationDialog.NotificationDialogTypes.TWO_BUTTONS,
                 NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_NO_TITLE,
                 NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_PROGRESS,
                 NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT,
                 NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR,
+                NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT,
 
                 NotificationDialog.NotificationDialogTypes.THREE_BUTTONS,
                 NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_NO_TITLE,
                 NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_PROGRESS,
                 NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT,
-                NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR
+                NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR,
+                NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT
         };
 
         WidgetSpinner widgetSpinner = findViewById(R.id.widgetSpinner);
@@ -53,19 +56,41 @@ public class ControlsJavaPreview extends AppCompatActivity {
                         .setProgress(-50)
                         .setProgressMin(-100)
                         .setProgressMax(100)
+                        .setUnitsText("Inches")
                         .setCheckBoxText("Some text in the check box")
                         .setOnDismissListener(dialog -> Toast.makeText(ControlsJavaPreview.this, "Notification dialog dismissed", Toast.LENGTH_SHORT).show())
                         .setOnClickListener((dialog, which) -> {
 
                                     Toast.makeText(ControlsJavaPreview.this, "Button " + which + ", clicked", Toast.LENGTH_SHORT).show();
 
-                                    if (notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT) {
+                                    if (notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT) {
+
                                         Toast.makeText(ControlsJavaPreview.this, "Text: " + dialog.getText() + ", IsChecked: " + dialog.isChecked(), Toast.LENGTH_SHORT).show();
-                                    } else if (notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR) {
+
+                                    } else if (notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR_EDIT_TEXT ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT ||
+                                            notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT) {
+
                                         Toast.makeText(ControlsJavaPreview.this, "Progress: " + dialog.getProgress() + ", IsChecked: " + dialog.isChecked(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                         )
+                        .setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnValueUpdatedListener() {
+                            @Override
+                            public String onProgressValueUpdated(int value) {
+                                return Integer.toString(value);
+                            }
+
+                            @Override
+                            public int onUserInputChanged(String value) {
+                                return Integer.parseInt(value);
+                            }
+                        })
                         .setOnProgressValueUpdatedListener(value -> "<" + value + ">")
                         .build()
                         .show(getSupportFragmentManager(), "fragment_edit_name");
@@ -88,12 +113,7 @@ public class ControlsJavaPreview extends AppCompatActivity {
             }
         });
 
-        widgetTitleAndSeekBar.setOnValueUpdatedListener(new CompoundWidgetInterfaces.OnProgressValueUpdatedListener() {
-            @Override
-            public String onProgressValueUpdated(int value) {
-                return ">>" + value;
-            }
-        });
+        widgetTitleAndSeekBar.setOnValueUpdatedListener(value -> ">>" + value);
 
         widgetTitleAndSeekBar.setProgress(50);
 

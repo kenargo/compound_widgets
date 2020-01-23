@@ -57,14 +57,14 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/eb_lorem_ipsum_short"
-        app:layout_constraintBottom_toTopOf="@+id/widgetTitleAndSeekBarNotificationDialog"
+        app:layout_constraintBottom_toTopOf="@+id/widgetTitleAndSeekBarEditTextNotificationDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigationDialogTopDivider"
         tools:text="@string/eb_lorem_ipsum_short" />
 
-    <com.kenargo.compound_widgets.WidgetTitleAndSeekBar
-        android:id="@+id/widgetTitleAndSeekBarNotificationDialog"
+    <com.kenargo.compound_widgets.WidgetTitleAndSeekBarEditText
+        android:id="@+id/widgetTitleAndSeekBarEditTextNotificationDialog"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_with_gray_corners"
@@ -72,8 +72,7 @@
         app:layout_constraintBottom_toTopOf="@+id/checkBoxTextNavigationDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationDialogMessage"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationDialogMessage" />
 
     <CheckBox
         android:id="@+id/checkBoxTextNavigationDialog"
@@ -83,7 +82,7 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
-        app:layout_constraintStart_toStartOf="@+id/widgetTitleAndSeekBarNotificationDialog"
+        app:layout_constraintStart_toStartOf="@+id/widgetTitleAndSeekBarEditTextNotificationDialog"
         tools:text="@string/eb_lorem_ipsum_short" />
 
     <hakobastvatsatryan.DropdownTextView
