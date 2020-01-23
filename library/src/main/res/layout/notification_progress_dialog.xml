@@ -71,10 +71,20 @@
         android:layout_margin="8dp"
         android:indeterminate="true"
         android:minHeight="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxTextNavigationDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNotificationDialogMessage" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTextNavigationDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintStart_toStartOf="@+id/progressBarNotificationDialog"
+        tools:text="@string/eb_lorem_ipsum_short" />
 
     <hakobastvatsatryan.DropdownTextView
         android:id="@+id/textViewNotificationDialogDescription"

@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_with_gray_corners"
         android:padding="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxTextNavigationDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNotificationDialogMessage"
@@ -77,6 +77,17 @@
         app:widgetTitleAndSeekBarMinValue="0"
         app:widgetTitleAndSeekBarUnits="inches"
         tools:ignore="HardcodedText" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTextNavigationDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintStart_toStartOf="@+id/widgetTitleAndSeekBarNotificationDialog"
+        tools:text="@string/eb_lorem_ipsum_short" />
 
     <hakobastvatsatryan.DropdownTextView
         android:id="@+id/textViewNotificationDialogDescription"

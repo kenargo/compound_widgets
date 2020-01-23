@@ -48,7 +48,9 @@ public class ControlsJavaPreview extends AppCompatActivity {
                 new NotificationDialog.Builder(ControlsJavaPreview.this)
                         .setNotificationType(notificationDialogResourceIds[selectedItem])
                         .setNotificationIcon(NotificationDialog.NotificationDialogIcons.SUCCESS)
+                        .setDescriptionText("Some Description Text")
                         .setPositiveButton("OK")
+                        .setCheckBoxText("Some text in the check box")
                         .setOnDismissListener(dialog -> Toast.makeText(ControlsJavaPreview.this, "Notification dialog dismissed", Toast.LENGTH_SHORT).show())
                         .build()
                         .show(getSupportFragmentManager(), "fragment_edit_name");

@@ -57,29 +57,11 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:text="@string/eb_lorem_ipsum_short"
-        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNavigationDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigationDialogTopDivider"
         tools:text="@string/eb_lorem_ipsum_short" />
-
-    <hakobastvatsatryan.DropdownTextView
-        android:id="@+id/textViewNotificationDialogDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:gravity="end"
-        android:minHeight="120dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:text="@string/eb_lorem_ipsum_short"
-        app:content_text_color="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNavigationDialog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:title_text="@string/moreInformation"
-        app:title_text_color="@color/black"
-        tools:content_text="@string/eb_lorem_ipsum_long" />
 
     <EditText
         android:id="@+id/editTextNavigationDialog"
@@ -96,10 +78,39 @@
         android:minHeight="36dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigationDialogBottomDivider"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxTextNavigationDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="Autofill,LabelFor" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTextNavigationDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationDialogDescription"
+        app:layout_constraintStart_toStartOf="@+id/editTextNavigationDialog"
+        tools:text="@string/eb_lorem_ipsum_short" />
+
+    <hakobastvatsatryan.DropdownTextView
+        android:id="@+id/textViewNotificationDialogDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="end"
+        android:minHeight="120dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/eb_lorem_ipsum_short"
+        app:content_text_color="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/navigationDialogBottomDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title_text="@string/moreInformation"
+        app:title_text_color="@color/black"
+        tools:content_text="@string/eb_lorem_ipsum_long" />
+
 
     <!--Yes, the layout_marginBottom is intentionally set to match the height of the buttons-->
 

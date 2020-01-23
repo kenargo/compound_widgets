@@ -1,10 +1,15 @@
 package com.kenargo.compound_widgets
 
-import android.content.*
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.*
-import android.view.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.kenargo.myapplicationlibrary.R
@@ -19,6 +24,7 @@ class NotificationDialog : DialogFragment() {
     private var textViewNotificationDialogTitle: TextView? = null
     private var textViewNotificationDialogMessage: TextView? = null
     private var textViewNotificationDialogDescription: DropdownTextView? = null
+    private var checkBoxTextNavigationDialog: CheckBox? = null
     private var textViewNotificationDialogNegativeResponse: Button? = null
     private var textViewNotificationDialogNeutralResponse: Button? = null
     private var textViewNotificationDialogPositiveResponse: Button? = null
@@ -99,6 +105,8 @@ class NotificationDialog : DialogFragment() {
         textViewNotificationDialogTitle = view.findViewById(R.id.textViewNotificationDialogTitle)
         textViewNotificationDialogMessage = view.findViewById(R.id.textViewNotificationDialogMessage)
         textViewNotificationDialogDescription = view.findViewById(R.id.textViewNotificationDialogDescription)
+        checkBoxTextNavigationDialog = view.findViewById(R.id.checkBoxTextNavigationDialog)
+
         textViewNotificationDialogNegativeResponse = view.findViewById(R.id.textViewNotificationDialogNegativeResponse)
         textViewNotificationDialogNeutralResponse = view.findViewById(R.id.textViewNotificationDialogNeutralResponse)
         textViewNotificationDialogPositiveResponse = view.findViewById(R.id.textViewNotificationDialogPositiveResponse)
@@ -156,17 +164,27 @@ class NotificationDialog : DialogFragment() {
 
         builder.message?.let { textViewNotificationDialogMessage!!.text = it }
 
-        builder.descriptionText?.let { textViewNotificationDialogDescription!!.setContentText(it.toString()) }
+        builder.descriptionText?.let { textViewNotificationDialogDescription?.setContentText(it.toString()) }
 
-        builder.negativeButton?.let { textViewNotificationDialogNegativeResponse!!.text = it }
+        if (textViewNotificationDialogDescription?.getContentTextView()!!.text!!.isNullOrEmpty()) {
+            textViewNotificationDialogDescription?.visibility = View.GONE
+        }
 
-        builder.neutralButton?.let { textViewNotificationDialogNeutralResponse!!.text = it }
+        builder.checkBoxText?.let { checkBoxTextNavigationDialog?.text = it }
 
-        builder.positiveButton?.let { textViewNotificationDialogPositiveResponse!!.text = it }
+        if (builder.checkBoxText.isNullOrEmpty()) {
+            checkBoxTextNavigationDialog?.visibility = View.GONE
+        }
 
-        builder.progress?.let { progressBarNotificationDialog!!.progress = it }
+        builder.negativeButton?.let { textViewNotificationDialogNegativeResponse?.text = it }
 
-        builder.progressIndeterminant?.let { progressBarNotificationDialog!!.isIndeterminate = it }
+        builder.neutralButton?.let { textViewNotificationDialogNeutralResponse?.text = it }
+
+        builder.positiveButton?.let { textViewNotificationDialogPositiveResponse?.text = it }
+
+        builder.progress?.let { progressBarNotificationDialog?.progress = it }
+
+        builder.progressIndeterminant?.let { progressBarNotificationDialog?.isIndeterminate = it }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.progressMin?.let { progressBarNotificationDialog!!.min = it }
@@ -294,6 +312,9 @@ class NotificationDialog : DialogFragment() {
         var positiveButton: CharSequence? = null
             private set
 
+        var checkBoxText: CharSequence? = null
+            private set
+
         var timeout: Int? = null
             private set
 
@@ -352,6 +373,10 @@ class NotificationDialog : DialogFragment() {
 
         fun setPositiveButton(text: String) = apply {
             this.positiveButton = text
+        }
+
+        fun setCheckBoxText(text: String) = apply {
+            this.checkBoxText = text
         }
 
         fun setTimeout(timeout: Int?) = apply {
