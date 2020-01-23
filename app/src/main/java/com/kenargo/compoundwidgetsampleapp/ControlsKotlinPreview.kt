@@ -1,6 +1,5 @@
 package com.kenargo.compoundwidgetsampleapp
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.widget.SeekBar
@@ -63,7 +62,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
                     .setMessage("This is some error message you might want to show the user")
                     .setDescriptionText("You can also have a varying length of a description text that includes some details on how to resolve the issue")
                     .setPositiveButton("OK")
-                    .setOnDismissListener(DialogInterface.OnDismissListener {
+                    .setOnDismissListener(CompoundWidgetInterfaces.OnDismissListener {
                         Toast.makeText(this, "Notification dialog dismissed", Toast.LENGTH_SHORT)
                             .show()
                     })

@@ -27,4 +27,28 @@ public class CompoundWidgetInterfaces {
         String onProgressValueUpdated(int value);
         int onUserInputChanged(String value);
     }
+
+    /**
+     * Interface used to allow the creator of a dialog to run some code when the
+     * dialog is dismissed.
+     */
+    public interface OnDismissListener {
+        /**
+         * This method will be invoked when the dialog is dismissed.
+         *
+         * @param dialog the dialog that was dismissed will be passed into the
+         *               method
+         */
+        void onDismiss(NotificationDialog dialog);
+    }
+
+    public interface OnClickListener {
+        /**
+         * This method will be invoked when a button in the dialog is clicked.
+         *
+         * @param dialog the dialog that received the click
+         * @param which the button that was clicked
+         */
+        void onClick(NotificationDialog dialog, int which);
+    }
 }

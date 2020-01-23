@@ -30,6 +30,22 @@ class NotificationDialog : DialogFragment() {
     private var textViewNotificationDialogPositiveResponse: Button? = null
     private var progressBarNotificationDialog: ProgressBar? = null
     private var widgetTitleAndSeekBarNotificationDialog: WidgetTitleAndSeekBar? = null
+    private var editTextNavigationDialog: EditText? = null
+
+    val progress: Int
+        get() {
+            return widgetTitleAndSeekBarNotificationDialog!!.getProgress()
+        }
+
+    val isChecked: Boolean
+        get() {
+            return checkBoxTextNavigationDialog!!.isChecked
+        }
+
+    val text: String?
+        get() {
+            return editTextNavigationDialog!!.text.toString()
+        }
 
     enum class NotificationDialogTypes {
         ONE_BUTTON,
@@ -115,6 +131,8 @@ class NotificationDialog : DialogFragment() {
 
         widgetTitleAndSeekBarNotificationDialog = view.findViewById(R.id.widgetTitleAndSeekBarNotificationDialog)
 
+        editTextNavigationDialog = view.findViewById(R.id.editTextNavigationDialog)
+
         val dividerNotificationDialogNegativeResponse = view.findViewById<View>(R.id.dividerNotificationDialogNegativeResponse)
         val dividerNotificationDialogNeutralResponse = view.findViewById<View>(R.id.dividerNotificationDialogNeutralResponse)
 
@@ -156,6 +174,27 @@ class NotificationDialog : DialogFragment() {
             }
         }
 
+        // Callbacks setup:
+
+        textViewNotificationDialogNegativeResponse?.setOnClickListener {
+            dismiss()
+            builder.onClickListener?.onClick(this, DialogInterface.BUTTON_NEGATIVE)
+        }
+
+        textViewNotificationDialogNeutralResponse?.setOnClickListener {
+            dismiss()
+            builder.onClickListener?.onClick(this, DialogInterface.BUTTON_NEUTRAL)
+        }
+
+        textViewNotificationDialogPositiveResponse?.setOnClickListener {
+            dismiss()
+            builder.onClickListener?.onClick(this, DialogInterface.BUTTON_POSITIVE)
+        }
+
+        widgetTitleAndSeekBarNotificationDialog?.setOnValueUpdatedListener(CompoundWidgetInterfaces.OnProgressValueUpdatedListener {
+            return@OnProgressValueUpdatedListener builder.onProgressValueUpdatedListener?.onProgressValueUpdated(it)
+        })
+
         builder.timeout?.let { timeout = it }
 
         builder.notificationDialogIcon?.let { setType(it) }
@@ -164,25 +203,32 @@ class NotificationDialog : DialogFragment() {
 
         builder.message?.let { textViewNotificationDialogMessage!!.text = it }
 
+        // More information text setup:
         builder.descriptionText?.let { textViewNotificationDialogDescription?.setContentText(it.toString()) }
 
-        if (textViewNotificationDialogDescription?.getContentTextView()!!.text!!.isNullOrEmpty()) {
+        if (textViewNotificationDialogDescription?.getContentTextView()!!.text!!.isEmpty()) {
             textViewNotificationDialogDescription?.visibility = View.GONE
         }
 
+        // CheckBox setup:
         builder.checkBoxText?.let { checkBoxTextNavigationDialog?.text = it }
 
         if (builder.checkBoxText.isNullOrEmpty()) {
             checkBoxTextNavigationDialog?.visibility = View.GONE
         }
 
-        builder.negativeButton?.let { textViewNotificationDialogNegativeResponse?.text = it }
+        // SeerBar setup:
+        // Note: When setting up the SeekBar it's important to setup the range before progress!
+        if (builder.progressMin != null && builder.progressMax != null) {
+            widgetTitleAndSeekBarNotificationDialog?.setSeekBarRange(builder.progressMin!!, builder.progressMax!!)
+        }
 
-        builder.neutralButton?.let { textViewNotificationDialogNeutralResponse?.text = it }
+        // ProgressBar and SeekBar setup:
+        builder.progress?.let {
+            progressBarNotificationDialog?.setProgress(it)
+            widgetTitleAndSeekBarNotificationDialog?.setProgress(it)
+        }
 
-        builder.positiveButton?.let { textViewNotificationDialogPositiveResponse?.text = it }
-
-        builder.progress?.let { progressBarNotificationDialog?.setProgress(it) }
         builder.progressIndeterminant?.let { progressBarNotificationDialog?.isIndeterminate = it }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -191,25 +237,16 @@ class NotificationDialog : DialogFragment() {
 
         builder.progressMax?.let { progressBarNotificationDialog?.max = it }
 
+        // Bottom buttons setup:
+        builder.negativeButton?.let { textViewNotificationDialogNegativeResponse?.text = it }
+        builder.neutralButton?.let { textViewNotificationDialogNeutralResponse?.text = it }
+        builder.positiveButton?.let { textViewNotificationDialogPositiveResponse?.text = it }
+
+        // Dialog setup
         if (builder.cancelable || builder.timeout != null) {
             // If the caller specified cancellable or this is a timeout dialog (which should allow
             //  the user to cancel then set cancellable)
             isCancelable = true
-        }
-
-        textViewNotificationDialogNegativeResponse?.setOnClickListener {
-            dismiss()
-            builder.onClickListener?.onClick(null, DialogInterface.BUTTON_NEGATIVE)
-        }
-
-        textViewNotificationDialogNeutralResponse?.setOnClickListener {
-            dismiss()
-            builder.onClickListener?.onClick(null, DialogInterface.BUTTON_NEUTRAL)
-        }
-
-        textViewNotificationDialogPositiveResponse?.setOnClickListener {
-            dismiss()
-            builder.onClickListener?.onClick(null, DialogInterface.BUTTON_POSITIVE)
         }
     }
 
@@ -326,10 +363,13 @@ class NotificationDialog : DialogFragment() {
         var cancelable: Boolean = false
             private set
 
-        var onDismissListener: DialogInterface.OnDismissListener? = null
+        var onDismissListener: CompoundWidgetInterfaces.OnDismissListener? = null
             private set
 
-        var onClickListener: DialogInterface.OnClickListener? = null
+        var onClickListener: CompoundWidgetInterfaces.OnClickListener? = null
+            private set
+
+        var onProgressValueUpdatedListener: CompoundWidgetInterfaces.OnProgressValueUpdatedListener? = null
             private set
 
         fun build(): NotificationDialog {
@@ -396,12 +436,16 @@ class NotificationDialog : DialogFragment() {
             this.cancelable = cancelable
         }
 
-        fun setOnDismissListener(listener: DialogInterface.OnDismissListener?) = apply {
+        fun setOnDismissListener(listener: CompoundWidgetInterfaces.OnDismissListener?) = apply {
             this.onDismissListener = listener
         }
 
-        fun setOnClickListener(listener: DialogInterface.OnClickListener?) = apply {
+        fun setOnClickListener(listener: CompoundWidgetInterfaces.OnClickListener?) = apply {
             this.onClickListener = listener
+        }
+
+        fun setOnProgressValueUpdatedListener(listener: CompoundWidgetInterfaces.OnProgressValueUpdatedListener?) = apply {
+            this.onProgressValueUpdatedListener = listener
         }
     }
 

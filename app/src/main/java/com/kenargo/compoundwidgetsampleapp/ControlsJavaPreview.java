@@ -50,8 +50,23 @@ public class ControlsJavaPreview extends AppCompatActivity {
                         .setNotificationIcon(NotificationDialog.NotificationDialogIcons.SUCCESS)
                         .setDescriptionText("Some Description Text")
                         .setPositiveButton("OK")
+                        .setProgress(-50)
+                        .setProgressMin(-100)
+                        .setProgressMax(100)
                         .setCheckBoxText("Some text in the check box")
                         .setOnDismissListener(dialog -> Toast.makeText(ControlsJavaPreview.this, "Notification dialog dismissed", Toast.LENGTH_SHORT).show())
+                        .setOnClickListener((dialog, which) -> {
+
+                                    Toast.makeText(ControlsJavaPreview.this, "Button " + which + ", clicked", Toast.LENGTH_SHORT).show();
+
+                                    if (notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_EDIT_TEXT) {
+                                        Toast.makeText(ControlsJavaPreview.this, "Text: " + dialog.getText() + ", IsChecked: " + dialog.isChecked(), Toast.LENGTH_SHORT).show();
+                                    } else if (notificationDialogResourceIds[selectedItem] == NotificationDialog.NotificationDialogTypes.ONE_BUTTONS_AND_SEEKBAR) {
+                                        Toast.makeText(ControlsJavaPreview.this, "Progress: " + dialog.getProgress() + ", IsChecked: " + dialog.isChecked(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        )
+                        .setOnProgressValueUpdatedListener(value -> "<" + value + ">")
                         .build()
                         .show(getSupportFragmentManager(), "fragment_edit_name");
             }
