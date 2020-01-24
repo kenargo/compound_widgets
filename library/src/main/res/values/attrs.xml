@@ -98,6 +98,11 @@
         <attr name="widgetTitleAndSpinnerHint" format="string|reference" />
 
         <attr name="widgetTitleAndSpinnerMaxItemDisplay" format="integer"/>
+
+        <attr name="widgetTitleAndSpinnerWidth" format="dimension">
+            <!-- The view should be only big enough to enclose its content (plus padding). -->
+            <enum name="wrap_content" value="-2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="WidgetBackTitleForwardDelete">

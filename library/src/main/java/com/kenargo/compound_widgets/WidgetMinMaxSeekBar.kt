@@ -1,5 +1,6 @@
 package com.kenargo.compound_widgets
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
@@ -283,10 +284,12 @@ class WidgetMinMaxSeekBar @JvmOverloads constructor(
             seekBarAnimator = ValueAnimator.ofInt(startValue, endValue)
             seekBarAnimator.interpolator = DecelerateInterpolator()
             seekBarAnimator.duration = animationDuration.toLong()
+
             seekBarAnimator.addUpdateListener {
                 seekBarWidgetMinMaxSeekBar.progress = it.animatedValue as Int
                 updateIncreaseDecreaseButtons()
             }
+
         } else {
             if (seekBarAnimator.isRunning) {
                 seekBarAnimator.cancel()

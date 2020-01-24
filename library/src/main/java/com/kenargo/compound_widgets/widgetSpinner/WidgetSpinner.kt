@@ -249,7 +249,7 @@ class WidgetSpinner @JvmOverloads constructor(
         setItemList(spinnerItemList)
     }
 
-    private fun getMaxMaxItemWidth(): Int {
+    fun getMaxMaxItemWidth(): Int {
 
         // Create a layout for calculating the accurate width of the PopupWindow
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

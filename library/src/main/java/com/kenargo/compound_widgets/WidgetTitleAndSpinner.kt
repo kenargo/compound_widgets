@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
 import com.kenargo.myapplicationlibrary.R
 import kotlinx.android.synthetic.main.widget_title_and_spinner.view.*
@@ -20,6 +21,7 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
 
     private fun initSubView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         LayoutInflater.from(context).inflate(R.layout.widget_title_and_spinner, this, true)
+
         applyAttributes(context, attrs, defStyleAttr)
 
         widgetSpinnerWidgetTitleAndSpinner.setOnSelectedItemChangedListener(CompoundWidgetInterfaces.OnSelectedItemChanged {
@@ -37,6 +39,7 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
         )
 
         var entriesAttribute = 0
+        var spinnerWidth: Int = WRAP_CONTENT
         var hint: CharSequence? = null
 
         try {
@@ -67,6 +70,10 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
                         widgetSpinnerWidgetTitleAndSpinner.maxItemDisplay = typedArray.getInt(
                             R.styleable.WidgetTitleAndSpinner_widgetTitleAndSpinnerMaxItemDisplay, -1)
                     }
+                    R.styleable.WidgetTitleAndSpinner_widgetTitleAndSpinnerWidth -> {
+                        spinnerWidth = typedArray.getLayoutDimension(
+                            R.styleable.WidgetTitleAndSpinner_widgetTitleAndSpinnerWidth, 0)
+                    }
                 }
             }
         } finally {
@@ -82,6 +89,12 @@ class WidgetTitleAndSpinner @JvmOverloads constructor(
 
                 val itemsList = listOf(*context.resources.getStringArray(entriesAttribute))
                 widgetSpinnerWidgetTitleAndSpinner.setItemList(itemsList)
+            }
+
+            if (spinnerWidth == WRAP_CONTENT) {
+                widgetSpinnerWidgetTitleAndSpinner!!.layoutParams.width = widgetSpinnerWidgetTitleAndSpinner!!.getMaxMaxItemWidth()
+            } else {
+                widgetSpinnerWidgetTitleAndSpinner!!.layoutParams.width = spinnerWidth.toInt()
             }
 
             typedArray.recycle()
