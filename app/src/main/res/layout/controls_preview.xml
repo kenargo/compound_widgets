@@ -22,7 +22,7 @@
         <com.kenargo.compound_widgets.widgetSpinner.WidgetSpinner
             android:id="@+id/widgetSpinner"
             style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="100dp"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             app:widgetSpinnerMaxItemDisplay="4"
