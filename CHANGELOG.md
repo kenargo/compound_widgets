@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added CheckBox to some NotificationDialogs and exposed access in builder for same
 - Exposed properties of MinMaxSeekBar and added ability to read user inputs from NotificationDialogs
 - Added SeekBar EditText UI variant for NotificationDialog
+##Fixed
+- Fixed drop-down to correctly size width
+- Play, Pause widget showing incorrect state images
 
 ##[1.3.1]
 ### Changed

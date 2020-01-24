@@ -6,6 +6,7 @@ import android.util.TypedValue
 class Conversions {
 
     companion object {
+
         fun spToPx(sp: Float, context: Context): Int {
             return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,

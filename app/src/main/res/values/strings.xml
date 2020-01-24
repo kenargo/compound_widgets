@@ -30,4 +30,13 @@
         <item>THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT</item>
     </string-array>
 
+
+    <string-array name="finishActionSettingStrings">
+        <item>Remain at last waypoint</item>
+        <item>Return to home point</item>
+        <item>Land at last waypoint</item>
+        <item>Return to 1st waypoint</item>
+        <item>Reversible</item>
+    </string-array>
+
 </resources>

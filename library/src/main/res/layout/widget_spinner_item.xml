@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeViewWidgetSpinnerItem"
@@ -8,35 +8,43 @@
     android:paddingStart="8dp"
     android:paddingEnd="8dp">
 
-    <TextView
-        android:id="@+id/textViewWidgetSpinnerItem"
-        style="@style/TextAppearance.AppCompat"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="8dp"
-        android:gravity="center|start"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewWidgetSpinnerItemSelected"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_wrapHeight="116"
-        tools:layout_conversion_wrapWidth="1080"
-        tools:text="VALUE" />
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imageViewWidgetSpinnerItemSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        tools:src="@drawable/widget_spinner_selected_item"
-        tools:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewWidgetSpinnerItem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewWidgetSpinnerItem"
-        android:contentDescription="@null" />
+        <TextView
+            android:id="@+id/textViewWidgetSpinnerItem"
+            style="@style/TextAppearance.AppCompat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:lines="1"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewWidgetSpinnerItemSelected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="VALUE" />
 
+        <ImageView
+            android:id="@+id/imageViewWidgetSpinnerItemSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            tools:src="@drawable/widget_spinner_selected_item"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewWidgetSpinnerItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewWidgetSpinnerItem"
+            android:contentDescription="@null" />
+
+    </LinearLayout>
+
+    <!--Separator-->
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -47,4 +55,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWidgetSpinnerItem" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

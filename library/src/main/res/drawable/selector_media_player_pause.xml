@@ -5,10 +5,10 @@
     <item android:drawable="@drawable/media_player_pause_disabled" android:state_enabled="false" />
 
     <!-- pressed -->
-    <item android:drawable="@drawable/media_player_pause_disabled" android:state_pressed="false" />
+    <item android:drawable="@drawable/media_player_pause_enabled" android:state_pressed="false" />
 
     <!-- focused -->
-    <item android:drawable="@drawable/media_player_pause_enabled" android:state_pressed="true" />
+    <item android:drawable="@drawable/media_player_pause_disabled" android:state_pressed="true" />
 
     <!-- Idle state, when all above rules fail -->
     <item android:drawable="@drawable/media_player_pause_enabled" android:state_enabled="true" />

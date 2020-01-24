@@ -168,7 +168,7 @@
             android:id="@+id/widgetTitleAndSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/TestNotificationDialog"
+            android:entries="@array/finishActionSettingStrings"
             android:subtitle="This is a subtitle"
             android:text="This is a title"
             app:widgetTitleAndSpinnerHint="This is a test hint"

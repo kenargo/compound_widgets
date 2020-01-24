@@ -174,14 +174,8 @@ class WidgetSpinner @JvmOverloads constructor(
 
         widgetSpinnerPopupList!!.height = popupWindowMaxHeight
 
-        // Create a TextView for calculating the accurate width of the PopupWindow
-        val textViewTemp = TextView(context)
-        textViewTemp.text = getMaxLengthItemString()
-        textViewTemp.measure(0, 0)
-        val calculatedWidth: Int = textViewTemp.measuredWidth
-
         widgetSpinnerPopupList!!.width =
-            max(linearLayoutSpinner.measuredWidth, Conversions.spToPx(calculatedWidth.toFloat(), context))
+            max(linearLayoutSpinner.measuredWidth, getMaxMaxItemWidth())
 
         if (coverParent) {
 
@@ -246,29 +240,33 @@ class WidgetSpinner @JvmOverloads constructor(
         return textViewWidgetSpinnerText.text.toString().trim { it <= ' ' }
     }
 
-    fun updateSpinnerItemList(spinnerItemList: List<String?>?) {
+    fun updateSpinnerItemList(spinnerItemList: List<String>) {
 
         if (spinnerItemList == null || spinnerItemList.size == 0) {
             return
         }
 
-//        setItemList(spinnerItemList)
+        setItemList(spinnerItemList)
     }
 
-    private fun getMaxLengthItemString(): String {
-        var maxLength = 0
-        var maxLengthItem = -1
+    private fun getMaxMaxItemWidth(): Int {
 
-        itemsList.forEachIndexed { index, s ->
-            maxLengthItem =
-                if (s.length > maxLength) {
-                    maxLength = index; index
-                } else {
-                    maxLengthItem
-                }
+        // Create a layout for calculating the accurate width of the PopupWindow
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.widget_spinner_item, null)
+
+        val textView = view.findViewById<TextView>(R.id.textViewWidgetSpinnerItem)
+
+        var maxWidth = 0
+
+        itemsList.forEach {
+            textView.text = it
+            view.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+
+            maxWidth = max(maxWidth, view.measuredWidth)
         }
 
-        return itemsList[maxLengthItem]
+        return maxWidth + Conversions.pxToDp(16.toFloat(), context)
     }
 
     init {

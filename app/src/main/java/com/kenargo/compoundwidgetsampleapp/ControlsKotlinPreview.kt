@@ -10,6 +10,7 @@ import com.kenargo.compound_widgets.NotificationDialog.*
 import com.kenargo.compound_widgets.WidgetBackTitleForwardDelete
 import kotlinx.android.synthetic.main.controls_preview.*
 
+
 class ControlsKotlinPreview : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
