@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/groupTitleAndHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="imageViewNotificationDialogTypeIcon,textViewNotificationDialogTitle,navigationDialogTopDivider" />
+    <!--You cannot used groups AND set individual view visibility, so I cannot use groups-->
+    <!--    <androidx.constraintlayout.widget.Group-->
+    <!--        android:id="@+id/groupTitleAndHeader"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:constraint_referenced_ids="imageViewNotificationDialogTypeIcon,textViewNotificationDialogTitle,navigationDialogTopDivider" />-->
 
     <ImageView
         android:id="@+id/imageViewNotificationDialogTypeIcon"

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -22,6 +23,8 @@ class NotificationDialog : DialogFragment() {
     // All possible widgets across all Notification Dialog layout files
     private var imageViewNotificationDialogTypeIcon: ImageView? = null
     private var textViewNotificationDialogTitle: TextView? = null
+    private var navigationDialogTopDivider: View? = null
+
     private var textViewNotificationDialogMessage: TextView? = null
     private var textViewNotificationDialogDescription: DropdownTextView? = null
     private var checkBoxTextNavigationDialog: CheckBox? = null
@@ -131,12 +134,14 @@ class NotificationDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val groupTitleAndHeader = view.findViewById<View>(R.id.groupTitleAndHeader)
+        //val groupTitleAndHeader = view.findViewById<View>(R.id.groupTitleAndHeader)
 
         // Try and get all the various widgets from all known Notification Dialog layouts
-        imageViewNotificationDialogTypeIcon = view.findViewById(R.id.imageViewNotificationDialogTypeIcon)
 
+        imageViewNotificationDialogTypeIcon = view.findViewById(R.id.imageViewNotificationDialogTypeIcon)
         textViewNotificationDialogTitle = view.findViewById(R.id.textViewNotificationDialogTitle)
+        navigationDialogTopDivider = view.findViewById(R.id.navigationDialogTopDivider)
+
         textViewNotificationDialogMessage = view.findViewById(R.id.textViewNotificationDialogMessage)
         textViewNotificationDialogDescription = view.findViewById(R.id.textViewNotificationDialogDescription)
         checkBoxTextNavigationDialog = view.findViewById(R.id.checkBoxTextNavigationDialog)
@@ -171,7 +176,7 @@ class NotificationDialog : DialogFragment() {
                 textViewNotificationDialogNeutralResponse!!.visibility = View.GONE
                 dividerNotificationDialogNeutralResponse.visibility = View.GONE
 
-                groupTitleAndHeader.visibility = View.GONE
+                setTitleAndGroupVisibility(View.GONE)
             }
 
             NotificationDialogTypes.TWO_BUTTONS, NotificationDialogTypes.TWO_BUTTONS_AND_PROGRESS, NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
@@ -182,14 +187,15 @@ class NotificationDialog : DialogFragment() {
             NotificationDialogTypes.TWO_BUTTONS_NO_TITLE -> {
                 textViewNotificationDialogNeutralResponse!!.visibility = View.GONE
                 dividerNotificationDialogNeutralResponse.visibility = View.GONE
-                groupTitleAndHeader.visibility = View.GONE
+
+                setTitleAndGroupVisibility(View.GONE)
             }
 
             NotificationDialogTypes.THREE_BUTTONS, NotificationDialogTypes.THREE_BUTTONS_AND_PROGRESS, NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
             }
 
             NotificationDialogTypes.THREE_BUTTONS_NO_TITLE -> {
-                groupTitleAndHeader.visibility = View.GONE
+                setTitleAndGroupVisibility(View.GONE)
             }
         }
 
@@ -285,13 +291,25 @@ class NotificationDialog : DialogFragment() {
         }
     }
 
+    private fun setTitleAndGroupVisibility(value: Int) {
+
+        imageViewNotificationDialogTypeIcon?.visibility = value
+        textViewNotificationDialogTitle?.visibility = value
+        navigationDialogTopDivider?.visibility = value
+    }
+
     private fun setType(type: NotificationDialogIcons?) {
 
         // TODO: I want the icon on the side and not in the title area
         if (imageViewNotificationDialogTypeIcon != null) {
+
             when (type) {
+                NotificationDialogIcons.NONE -> {
+                    imageViewNotificationDialogTypeIcon!!.visibility = View.GONE
+                }
                 NotificationDialogIcons.SUCCESS -> {
                     imageViewNotificationDialogTypeIcon!!.setImageResource(R.drawable.icon_dialog_success)
+                    imageViewNotificationDialogTypeIcon!!.visibility = View.VISIBLE
                     textViewNotificationDialogTitle!!.text = getString(R.string.notificationDialogSuccess)
                 }
                 NotificationDialogIcons.WARNING -> {
@@ -342,6 +360,7 @@ class NotificationDialog : DialogFragment() {
     }
 
     enum class NotificationDialogIcons {
+        NONE,
         SUCCESS,
         WARNING,
         INFORMATION,

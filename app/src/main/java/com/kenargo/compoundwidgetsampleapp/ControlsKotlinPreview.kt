@@ -64,7 +64,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
 
                 Builder(this)
                     .setNotificationType(notificationDialogResourceIds[it])
-                    .setNotificationIcon(NotificationDialogIcons.WARNING)
+                    .setNotificationIcon(NotificationDialogIcons.NONE)
                     .setMessage("This is some error message you might want to show the user")
                     .setDescriptionText("You can also have a varying length of a description text that includes some details on how to resolve the issue")
                     .setPositiveButton("OK")
