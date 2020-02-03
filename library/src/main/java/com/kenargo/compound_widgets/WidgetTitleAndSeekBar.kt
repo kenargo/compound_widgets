@@ -111,9 +111,19 @@ class WidgetTitleAndSeekBar @JvmOverloads constructor(
                     R.styleable.WidgetTitleAndSeekBar_android_progress -> {
                         setProgressValue = typedArray.getInt(R.styleable.WidgetTitleAndSeekBar_android_progress, defaultMinimum)
                     }
+                    R.styleable.WidgetTitleAndSeekBar_android_subtitle -> {
+                        textViewWidgetTitleAndSeekBarSubtitle.text = typedArray.getText(R.styleable.WidgetTitleAndSeekBar_android_subtitle)
+                    }
                 }
             }
         } finally {
+
+            textViewWidgetTitleAndSeekBarSubtitle.visibility =
+                if (textViewWidgetTitleAndSeekBarSubtitle.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
 
             textViewWidgetTitleAndSeekBarUnits.visibility =
                 if (textViewWidgetTitleAndSeekBarUnits.text.isNullOrEmpty()) {

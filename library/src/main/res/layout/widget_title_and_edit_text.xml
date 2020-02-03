@@ -15,6 +15,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="TITLE" />
 
+    <TextView
+        android:id="@+id/textViewWidgetTitleAndEditTextSubtitle"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textViewWidgetTitleAndEditTextTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWidgetTitleAndEditTextTitle"
+        tools:text="SUBTITLE" />
+
     <EditText
         android:id="@+id/editTextWidgetTitleAndEditTextValue"
         style="@style/TextAppearance.AppCompat"
@@ -28,9 +39,20 @@
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewWidgetTitleAndEditTextTitle"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewWidgetTitleAndEditTextUnits"
         app:layout_constraintTop_toTopOf="@+id/textViewWidgetTitleAndEditTextTitle"
         tools:ignore="Autofill,LabelFor,TextFields"
         tools:text="VALUE" />
+
+    <TextView
+        android:id="@+id/textViewWidgetTitleAndEditTextUnits"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewWidgetTitleAndEditTextTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewWidgetTitleAndEditTextTitle"
+        tools:text="UNITS" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

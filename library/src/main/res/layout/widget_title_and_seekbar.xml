@@ -17,6 +17,17 @@
         tools:text="TITLE" />
 
     <TextView
+        android:id="@+id/textViewWidgetTitleAndSeekBarSubtitle"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textViewWidgetTitleAndSeekBarTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWidgetTitleAndSeekBarTitle"
+        tools:text="SUBTITLE" />
+
+    <TextView
         android:id="@+id/textViewWidgetTitleAndSeekBarSeekBarValue"
         style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
@@ -48,6 +59,6 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWidgetTitleAndSeekBarSeekBarValue" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewWidgetTitleAndSeekBarSubtitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

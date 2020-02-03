@@ -40,6 +40,7 @@
         <!-- Standard attributes, note "android:" prefix and no format attribute -->
         <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
         <attr name="android:text"/>
+        <attr name="android:subtitle"/>
         <attr name="android:progress"/>
     </declare-styleable>
 
@@ -84,16 +85,20 @@
         <!-- Standard attributes, note "android:" prefix and no format attribute -->
         <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
         <attr name="android:text"/>
+        <attr name="android:subtitle"/>
         <attr name="android:progress"/>
         <attr name="android:inputType"/>
     </declare-styleable>
 
     <declare-styleable name="WidgetTitleAndEditText">
+        <attr name="widgetTitleAndEditTextUnits" format="string|reference" />
+
         <attr name="widgetTitleAndEditTextEditText" format="string|reference" />
 
         <!-- Standard attributes, note "android:" prefix and no format attribute -->
         <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
         <attr name="android:text"/>
+        <attr name="android:subtitle"/>
         <attr name="android:inputType"/>
     </declare-styleable>
 

@@ -174,9 +174,19 @@ class WidgetTitleAndSeekBarEditText @JvmOverloads constructor(
                             R.styleable.WidgetTitleAndSeekBarEditText_android_inputType, Integer.MIN_VALUE
                         )
                     }
+                    R.styleable.WidgetTitleAndSeekBarEditText_android_subtitle -> {
+                        textViewWidgetTitleAndSeekBarEditTextSubtitle.text = typedArray.getText(R.styleable.WidgetTitleAndSeekBarEditText_android_subtitle)
+                    }
                 }
             }
         } finally {
+
+            textViewWidgetTitleAndSeekBarEditTextSubtitle.visibility =
+                if (textViewWidgetTitleAndSeekBarEditTextSubtitle.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
 
             textViewWidgetTitleAndSeekBarEditTextUnits.visibility =
                 if (textViewWidgetTitleAndSeekBarEditTextUnits.text.isNullOrEmpty()) {

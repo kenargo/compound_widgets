@@ -43,7 +43,8 @@
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="WidgetTitleAndSeekBar"
+            android:text="WidgetTitleAndEditText"
+            android:subtitle="My subtitle"
             tools:ignore="HardcodedText" />
 
         <View style="@style/Divider.Horizontal" />
@@ -82,6 +83,7 @@
             android:layout_height="wrap_content"
             android:progress="75"
             android:text="This is a title"
+            android:subtitle="My subtitle"
             app:widgetTitleAndSeekBarMaxValue="100"
             app:widgetTitleAndSeekBarMinValue="-100"
             app:widgetTitleAndSeekBarUnits="Inches"

@@ -2,6 +2,7 @@ package com.kenargo.compound_widgets
 
 import android.content.Context
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -69,20 +70,43 @@ class WidgetTitleAndEditText @JvmOverloads constructor(
 
                 when (attribute) {
                     R.styleable.WidgetTitleAndEditText_android_text -> {
-                        textViewWidgetTitleAndEditTextTitle.text = typedArray.getText(R.styleable.WidgetTitleAndEditText_android_text)
+                        textViewWidgetTitleAndEditTextTitle.text =
+                            typedArray.getText(R.styleable.WidgetTitleAndEditText_android_text)
+                    }
+                    R.styleable.WidgetTitleAndEditText_widgetTitleAndEditTextUnits -> {
+                        textViewWidgetTitleAndEditTextUnits.text =
+                            typedArray.getText(R.styleable.WidgetTitleAndEditText_widgetTitleAndEditTextUnits)
                     }
                     R.styleable.WidgetTitleAndEditText_widgetTitleAndEditTextEditText -> {
                         editTextWidgetTitleAndEditTextValue.setText(
-                            typedArray.getText(R.styleable.WidgetTitleAndEditText_widgetTitleAndEditTextEditText))
+                            typedArray.getText(R.styleable.WidgetTitleAndEditText_widgetTitleAndEditTextEditText)
+                        )
                     }
-                     R.styleable.WidgetTitleAndEditText_android_inputType -> {
+                    R.styleable.WidgetTitleAndEditText_android_inputType -> {
                         inputType = typedArray.getInt(
                             R.styleable.WidgetTitleAndEditText_android_inputType, Integer.MIN_VALUE
                         )
                     }
+                    R.styleable.WidgetTitleAndEditText_android_subtitle -> {
+                        textViewWidgetTitleAndEditTextSubtitle.text = typedArray.getText(R.styleable.WidgetTitleAndEditText_android_subtitle)
+                    }
                 }
             }
         } finally {
+
+            textViewWidgetTitleAndEditTextSubtitle.visibility =
+                if (textViewWidgetTitleAndEditTextSubtitle.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+
+            textViewWidgetTitleAndEditTextUnits.visibility =
+                if (textViewWidgetTitleAndEditTextUnits.text.isNullOrEmpty()) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
 
             // If the user didn't specify the inputType then set a reasonable one based on range
             if (inputType != Integer.MIN_VALUE) {
@@ -111,6 +135,16 @@ class WidgetTitleAndEditText @JvmOverloads constructor(
         } else {
             textViewWidgetTitleAndEditTextTitle.text = title
             textViewWidgetTitleAndEditTextTitle.visibility = View.VISIBLE
+        }
+    }
+
+    fun setUnitsText(subTitle: String?) {
+
+        if (TextUtils.isEmpty(subTitle)) {
+            textViewWidgetTitleAndEditTextUnits.visibility = View.GONE
+        } else {
+            textViewWidgetTitleAndEditTextUnits.text = subTitle
+            textViewWidgetTitleAndEditTextUnits.visibility = View.VISIBLE
         }
     }
 
