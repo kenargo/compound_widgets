@@ -88,6 +88,15 @@
         <attr name="android:inputType"/>
     </declare-styleable>
 
+    <declare-styleable name="WidgetTitleAndEditText">
+        <attr name="widgetTitleAndEditTextEditText" format="string|reference" />
+
+        <!-- Standard attributes, note "android:" prefix and no format attribute -->
+        <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
+        <attr name="android:text"/>
+        <attr name="android:inputType"/>
+    </declare-styleable>
+
     <declare-styleable name="WidgetTitleAndSpinner">
         <!-- Standard attributes, note "android:" prefix and no format attribute -->
         <!--https://stackoverflow.com/questions/9732705/use-declare-styleable-to-set-custom-component-input-type/10361617#10361617-->
