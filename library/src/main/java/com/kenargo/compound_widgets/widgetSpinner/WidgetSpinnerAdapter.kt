@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kenargo.compound_widgets.CompoundWidgetInterfaces
 import com.kenargo.compound_widgets.widgetSpinner.WidgetSpinnerAdapter.WidgetViewHolder
 import com.kenargo.myapplicationlibrary.R
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.widget_spinner_item.*
 
 open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
 
@@ -43,30 +45,13 @@ open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.widget_spinner_item, parent, false)
-        val widgetViewHolder = WidgetViewHolder(view)
+        val widgetViewHolder = WidgetViewHolder(view, (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK))
         view.setOnClickListener { onSelectedItemChanged.onSelectionChange(widgetViewHolder.adapterPosition) }
         return widgetViewHolder
     }
 
     override fun onBindViewHolder(holder: WidgetViewHolder, position: Int) {
-
-        holder.textViewWidgetSpinnerItem.text = mList[position]
-
-        // https://medium.com/androiddevelopers/appcompat-v23-2-daynight-d10f90c83e94#.28mjofc2z
-        // Good article on dark mode and how Android implements the different states
-        val currentNightMode = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK)
-
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO ||
-            currentNightMode == Configuration.UI_MODE_NIGHT_UNDEFINED) {
-
-            holder.relativeViewWidgetSpinnerItem.setBackgroundColor(Color.WHITE)
-            holder.textViewWidgetSpinnerItem.setTextColor(if (position == selectPosition) Color.BLUE else Color.DKGRAY)
-        } else {
-            holder.relativeViewWidgetSpinnerItem.setBackgroundColor(Color.DKGRAY)
-            holder.textViewWidgetSpinnerItem.setTextColor(if (position == selectPosition) Color.CYAN else Color.WHITE)
-        }
-
-        holder.imageViewWidgetSpinnerItemSelected.visibility = if (position == selectPosition) View.VISIBLE else View.INVISIBLE
+        holder.bind(mList[position], (position == selectPosition))
     }
 
     override fun getItemCount(): Int {
@@ -77,9 +62,24 @@ open class WidgetSpinnerAdapter : RecyclerView.Adapter<WidgetViewHolder> {
         selectPosition = currentIndex
     }
 
-    class WidgetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val relativeViewWidgetSpinnerItem: View = itemView.findViewById(R.id.relativeViewWidgetSpinnerItem)
-        val textViewWidgetSpinnerItem: TextView = itemView.findViewById(R.id.textViewWidgetSpinnerItem)
-        val imageViewWidgetSpinnerItemSelected: ImageView = itemView.findViewById(R.id.imageViewWidgetSpinnerItemSelected)
+    class WidgetViewHolder (override val containerView: View?, private val currentNightMode: Int) : RecyclerView.ViewHolder(containerView!!.rootView),
+        LayoutContainer {
+
+        fun bind (listItem: String?, isSelected: Boolean = false) {
+
+            textViewWidgetSpinnerItem.text = listItem
+
+            if (currentNightMode == Configuration.UI_MODE_NIGHT_NO ||
+                currentNightMode == Configuration.UI_MODE_NIGHT_UNDEFINED) {
+
+                relativeViewWidgetSpinnerItem.setBackgroundColor(Color.WHITE)
+                textViewWidgetSpinnerItem.setTextColor(if (isSelected) Color.BLUE else Color.DKGRAY)
+            } else {
+                relativeViewWidgetSpinnerItem.setBackgroundColor(Color.DKGRAY)
+                textViewWidgetSpinnerItem.setTextColor(if (isSelected) Color.CYAN else Color.WHITE)
+            }
+
+            imageViewWidgetSpinnerItemSelected.visibility = if (isSelected) View.VISIBLE else View.INVISIBLE
+        }
     }
 }
