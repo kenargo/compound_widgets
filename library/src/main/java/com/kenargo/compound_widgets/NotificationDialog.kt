@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -176,7 +175,7 @@ class NotificationDialog : DialogFragment() {
                 textViewNotificationDialogNeutralResponse!!.visibility = View.GONE
                 dividerNotificationDialogNeutralResponse.visibility = View.GONE
 
-                setTitleAndGroupVisibility(View.GONE)
+                hideIndicatorIconAndTitle()
             }
 
             NotificationDialogTypes.TWO_BUTTONS, NotificationDialogTypes.TWO_BUTTONS_AND_PROGRESS, NotificationDialogTypes.TWO_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.TWO_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
@@ -188,14 +187,14 @@ class NotificationDialog : DialogFragment() {
                 textViewNotificationDialogNeutralResponse!!.visibility = View.GONE
                 dividerNotificationDialogNeutralResponse.visibility = View.GONE
 
-                setTitleAndGroupVisibility(View.GONE)
+                hideIndicatorIconAndTitle()
             }
 
             NotificationDialogTypes.THREE_BUTTONS, NotificationDialogTypes.THREE_BUTTONS_AND_PROGRESS, NotificationDialogTypes.THREE_BUTTONS_AND_EDIT_TEXT, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR, NotificationDialogTypes.THREE_BUTTONS_AND_SEEKBAR_EDIT_TEXT -> {
             }
 
             NotificationDialogTypes.THREE_BUTTONS_NO_TITLE -> {
-                setTitleAndGroupVisibility(View.GONE)
+                hideIndicatorIconAndTitle()
             }
         }
 
@@ -291,43 +290,45 @@ class NotificationDialog : DialogFragment() {
         }
     }
 
-    private fun setTitleAndGroupVisibility(value: Int) {
+    private fun hideIndicatorIconAndTitle() {
 
-        imageViewNotificationDialogTypeIcon?.visibility = value
-        textViewNotificationDialogTitle?.visibility = value
-        navigationDialogTopDivider?.visibility = value
+        imageViewNotificationDialogTypeIcon?.visibility = View.GONE
+        textViewNotificationDialogTitle?.visibility = View.GONE
+        navigationDialogTopDivider?.visibility = View.GONE
     }
 
     private fun setType(type: NotificationDialogIcons?) {
 
         // TODO: I want the icon on the side and not in the title area
-        if (imageViewNotificationDialogTypeIcon != null) {
 
-            when (type) {
-                NotificationDialogIcons.NONE -> {
-                    imageViewNotificationDialogTypeIcon!!.visibility = View.GONE
-                }
-                NotificationDialogIcons.SUCCESS -> {
-                    imageViewNotificationDialogTypeIcon!!.setImageResource(R.drawable.icon_dialog_success)
-                    imageViewNotificationDialogTypeIcon!!.visibility = View.VISIBLE
-                    textViewNotificationDialogTitle!!.text = getString(R.string.notificationDialogSuccess)
-                }
-                NotificationDialogIcons.WARNING -> {
-                    imageViewNotificationDialogTypeIcon!!.setImageResource(R.drawable.icon_dialog_warning)
-                    textViewNotificationDialogTitle!!.text = getString(R.string.notificationDialogWarning)
-                }
-                NotificationDialogIcons.INFORMATION -> {
-                    imageViewNotificationDialogTypeIcon!!.setImageResource(R.drawable.icon_dialog_information)
-                    textViewNotificationDialogTitle!!.text = getString(R.string.notificationDialogInformation)
-                }
-                NotificationDialogIcons.QUESTION -> {
-                    imageViewNotificationDialogTypeIcon!!.setImageResource(R.drawable.icon_dialog_question)
-                    textViewNotificationDialogTitle!!.text = getString(R.string.notificationDialogQuestion)
-                }
-                NotificationDialogIcons.FAILURE -> {
-                    imageViewNotificationDialogTypeIcon!!.setImageResource(R.drawable.icon_dialog_failure)
-                    textViewNotificationDialogTitle!!.text = getString(R.string.notificationDialogFailure)
-                }
+        when (type) {
+            NotificationDialogIcons.NONE -> {
+                imageViewNotificationDialogTypeIcon?.visibility = View.GONE
+            }
+            NotificationDialogIcons.SUCCESS -> {
+                imageViewNotificationDialogTypeIcon?.setImageResource(R.drawable.icon_dialog_success)
+                textViewNotificationDialogTitle!!.text =
+                    getString(R.string.notificationDialogSuccess)
+            }
+            NotificationDialogIcons.WARNING -> {
+                imageViewNotificationDialogTypeIcon?.setImageResource(R.drawable.icon_dialog_warning)
+                textViewNotificationDialogTitle!!.text =
+                    getString(R.string.notificationDialogWarning)
+            }
+            NotificationDialogIcons.INFORMATION -> {
+                imageViewNotificationDialogTypeIcon?.setImageResource(R.drawable.icon_dialog_information)
+                textViewNotificationDialogTitle!!.text =
+                    getString(R.string.notificationDialogInformation)
+            }
+            NotificationDialogIcons.QUESTION -> {
+                imageViewNotificationDialogTypeIcon?.setImageResource(R.drawable.icon_dialog_question)
+                textViewNotificationDialogTitle!!.text =
+                    getString(R.string.notificationDialogQuestion)
+            }
+            NotificationDialogIcons.FAILURE -> {
+                imageViewNotificationDialogTypeIcon?.setImageResource(R.drawable.icon_dialog_failure)
+                textViewNotificationDialogTitle!!.text =
+                    getString(R.string.notificationDialogFailure)
             }
         }
     }

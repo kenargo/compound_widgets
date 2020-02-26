@@ -240,9 +240,9 @@ class WidgetSpinner @JvmOverloads constructor(
         return textViewWidgetSpinnerText.text.toString().trim { it <= ' ' }
     }
 
-    fun updateSpinnerItemList(spinnerItemList: List<String>) {
+    fun updateSpinnerItemList(spinnerItemList: List<String>?) {
 
-        if (spinnerItemList == null || spinnerItemList.size == 0) {
+        if (spinnerItemList == null || spinnerItemList.isEmpty()) {
             return
         }
 

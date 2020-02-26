@@ -127,7 +127,7 @@ class ControlsKotlinPreview : AppCompatActivity() {
         //
         widgetTitleAndSeekBarEditText.setProgress(0)
 
-        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundWidgetInterfaces.OnCheckedChangeListener { view, isChecked ->
+        widgetTitleAndSwitchSeekBar.setOnCheckedChangedListener(CompoundWidgetInterfaces.OnCheckedChangeListener { _, _ ->
             Toast.makeText(applicationContext, "widgetTitleAndSwitchSeekBar Clicked", Toast.LENGTH_SHORT).show()
         })
 
