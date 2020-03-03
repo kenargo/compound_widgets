@@ -8,7 +8,7 @@
     <item android:drawable="@drawable/media_player_save_enabled" android:state_pressed="false" />
 
     <!-- focused -->
-    <item android:drawable="@drawable/media_player_save_disabled" android:state_pressed="true" />
+    <item android:drawable="@drawable/media_player_save_pressed" android:state_pressed="true" />
 
     <!-- Idle state, when all above rules fail -->
     <item android:drawable="@drawable/media_player_save_enabled" android:state_enabled="true" />
